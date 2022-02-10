@@ -1,0 +1,24 @@
+{
+  "name": "pacg-sheets-cdk",
+  "version": "0.1.0",
+  "description": "CDK for patc-sheets",
+  "bin": {
+    "app": "dist/src/cdk.js"
+  },
+  "scripts": {
+    "build": "tsc && cdk synth",
+    "cdk": "cdk",
+    "diff": "cdk diff PacgWebsite",
+    "deploy": "cdk deploy PacgWebsite",
+    "destroy": "cdk destroy PacgWebsite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^17.0.17",
+    "constructs": "^3.3.213",
+    "monocdk": "^1.144.0",
+    "typescript": "^4.5.5"
+  }
+}

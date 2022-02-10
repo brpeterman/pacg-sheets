@@ -1,0 +1,27 @@
+{
+  "name": "patc-sheets",
+  "version": "0.1.0",
+  "description": "Online character sheets for Pathfinder Adventure Card Game ",
+  "main": "index.js",
+  "scripts": {
+    "bootstrap": "npx lerna bootstrap",
+    "prebuild": "npm run format && npm run bootstrap",
+    "format": "npx prettier --w packages/**/*.{ts,js,tsx}",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brpeterman/patc-sheets.git"
+  },
+  "author": "Brandon Peterman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brpeterman/patc-sheets/issues"
+  },
+  "homepage": "https://github.com/brpeterman/patc-sheets#readme",
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2"
+  }
+}
