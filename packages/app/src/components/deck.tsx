@@ -3,7 +3,7 @@ import { UpgradeBox } from ".";
 import { CardType, DeckUpgrade } from "../model/characters";
 
 export interface DeckProps {
-  readonly baseDeck: Map<CardType, number>;
+  readonly baseDeck: { [key in CardType]: number };
   readonly favoredCards: CardType[];
   readonly availableUpgrades: { [key: string]: DeckUpgrade };
   readonly purchasedUpgrades: string[];
@@ -22,7 +22,7 @@ export class Deck extends React.Component<DeckProps> {
       .filter((deckUpgrade) => deckUpgrade.cardType === cardType)
       .reduce(
         (sum, current) => sum + current.modifier,
-        this.props.baseDeck.get(cardType) || 0
+        this.props.baseDeck[cardType] || 0
       );
   }
 
@@ -65,7 +65,7 @@ export class Deck extends React.Component<DeckProps> {
                   return (
                     <div className="deck-upgrade">
                       <UpgradeBox
-                        disabled={this.props.heroPoints < 1}
+                        heroPoints={this.props.heroPoints}
                         onChange={(e) =>
                           this.props.deckUpgradeHandler(upgradeEntry.id, e)
                         }

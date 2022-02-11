@@ -5,10 +5,11 @@ import { Power, PowerUpgrade } from "../model/characters";
 export interface PowersProps {
   readonly powers: Power[];
   readonly availableUpgrades: PowerUpgrade[];
-  readonly purchasedUpgrades: PowerUpgrade[];
+  readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
   readonly powerUpgradeHandler: (
-    u: PowerUpgrade,
+    u: string,
+    p: string,
     e: React.ChangeEvent<HTMLInputElement>
   ) => void;
 }
@@ -43,11 +44,15 @@ export class Powers extends React.Component<PowersProps> {
           `Tried to populate placeholder ${upgradeId} on ${power.powerId} but didn't find a matching upgrade.`
         );
       }
-      const purchased = false;
+      const purchased = this.props.purchasedUpgrades.includes(
+        `${power.powerId}|${upgradeId}`
+      );
       segments.push(
         <UpgradeBox
-          disabled={this.props.heroPoints < 1}
-          onChange={(e) => this.props.powerUpgradeHandler(upgrade, e)}
+          heroPoints={this.props.heroPoints}
+          onChange={(e) =>
+            this.props.powerUpgradeHandler(upgradeId, power.powerId, e)
+          }
           purchased={purchased}
         />
       );
@@ -68,9 +73,9 @@ export class Powers extends React.Component<PowersProps> {
         </div>
         {this.props.powers.map((power) => {
           return (
-            <div className="power-item">
+            <p className="power-item">
               {this.powerToSegments(power).map((segment) => segment)}
-            </div>
+            </p>
           );
         })}
       </section>

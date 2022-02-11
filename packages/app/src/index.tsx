@@ -9,7 +9,7 @@ import {
   Proficiencies,
 } from "./components";
 import { CharacterSheet } from "./model";
-import { PowerUpgrade, Valeros } from "./model/characters";
+import { Valeros } from "./model/characters";
 import "./style.scss";
 
 export interface AppProps {}
@@ -22,10 +22,41 @@ export interface AppState {
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = {
-      sheets: [new CharacterSheet(Valeros)],
-      activeSheetIndex: 0,
-    };
+    this.loadState();
+  }
+
+  loadState() {
+    const serializedState = window.localStorage.getItem("appState");
+    if (serializedState) {
+      const storedState = JSON.parse(serializedState);
+      const sheets = storedState.sheets.map(
+        (sheetData: CharacterSheet) =>
+          new CharacterSheet(
+            sheetData.character,
+            sheetData.heroPoints,
+            sheetData.role,
+            sheetData.deckUpgrades,
+            sheetData.abilityUpgrades,
+            sheetData.handUpgrades,
+            sheetData.proficiencyUpgrades,
+            sheetData.powerUpgrades
+          )
+      );
+      this.state = {
+        sheets,
+        activeSheetIndex: storedState.activeSheetIndex,
+      };
+    } else {
+      this.state = {
+        sheets: [new CharacterSheet(Valeros)],
+        activeSheetIndex: 0,
+      };
+    }
+  }
+
+  saveState() {
+    this.setState(this.state);
+    localStorage.setItem("appState", JSON.stringify(this.state));
   }
 
   deckUpgradeHandler = (
@@ -34,7 +65,7 @@ class App extends React.Component<AppProps, AppState> {
   ) => {
     const activeSheet = this.state.sheets[this.state.activeSheetIndex];
     activeSheet.toggleDeckUpgrade(upgrade);
-    this.setState(this.state);
+    this.saveState();
   };
 
   pointsChangedHandler = (diff: number) => {
@@ -43,7 +74,7 @@ class App extends React.Component<AppProps, AppState> {
     if (newValue >= 0) {
       activeSheet.heroPoints = newValue;
     }
-    this.setState(this.state);
+    this.saveState();
   };
 
   abilityUpgradeHandler = (
@@ -52,7 +83,7 @@ class App extends React.Component<AppProps, AppState> {
   ) => {
     const activeSheet = this.state.sheets[this.state.activeSheetIndex];
     activeSheet.toggleAbilityUpgrade(upgrade);
-    this.setState(this.state);
+    this.saveState();
   };
 
   handSizeUpgradeHandler = (
@@ -61,7 +92,7 @@ class App extends React.Component<AppProps, AppState> {
   ) => {
     const activeSheet = this.state.sheets[this.state.activeSheetIndex];
     activeSheet.toggleHandUpgrade(upgrade);
-    this.setState(this.state);
+    this.saveState();
   };
 
   proficiencyUpgradeHandler = (
@@ -70,16 +101,17 @@ class App extends React.Component<AppProps, AppState> {
   ) => {
     const activeSheet = this.state.sheets[this.state.activeSheetIndex];
     activeSheet.toggleProficiencyUpgrade(upgrade);
-    this.setState(this.state);
+    this.saveState();
   };
 
   powersUpgradeHandler = (
-    upgrade: PowerUpgrade,
+    upgradeId: string,
+    powerId: string,
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const activeSheet = this.state.sheets[this.state.activeSheetIndex];
-    activeSheet.togglePower(upgrade);
-    this.setState(this.state);
+    activeSheet.togglePower(upgradeId, powerId);
+    this.saveState();
   };
 
   render() {

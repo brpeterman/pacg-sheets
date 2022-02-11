@@ -161,14 +161,14 @@ export const Valeros: Character = {
 
   handSize: 4,
 
-  deck: new Map<CardType, number>([
-    [CardType.Weapon, 4],
-    [CardType.Spell, 0],
-    [CardType.Armor, 3],
-    [CardType.Item, 2],
-    [CardType.Ally, 3],
-    [CardType.Blessing, 3],
-  ]),
+  deck: {
+    [CardType.Weapon]: 4,
+    [CardType.Spell]: 0,
+    [CardType.Armor]: 3,
+    [CardType.Item]: 2,
+    [CardType.Ally]: 3,
+    [CardType.Blessing]: 3,
+  },
 
   abilities: [
     {

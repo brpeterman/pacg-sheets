@@ -31,7 +31,7 @@ export class Proficiencies extends React.Component<ProficienciesProps> {
             return (
               <div className="proficiencies-item">
                 <UpgradeBox
-                  disabled={this.props.heroPoints < 1}
+                  heroPoints={this.props.heroPoints}
                   onChange={(e) =>
                     this.props.proficiencyUpgradeHandler(upgradeId, e)
                   }

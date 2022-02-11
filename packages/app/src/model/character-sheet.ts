@@ -1,26 +1,33 @@
-import {
-  AbilityType,
-  AbilityUpgrade,
-  Character,
-  DeckUpgrade,
-  HandUpgrade,
-  PowerUpgrade,
-  ProficiencyUpgrade,
-  Role,
-} from "./characters";
+import { AbilityType, Character, Role } from "./characters";
 
 export class CharacterSheet {
   heroPoints: number = 0;
   character: Character;
   readonly role?: Role;
-  readonly deckUpgrades: string[] = [];
-  readonly abilityUpgrades: string[] = [];
-  readonly handUpgrades: string[] = [];
-  readonly proficiencyUpgrades: string[] = [];
-  readonly powerUpgrades: PowerUpgrade[] = [];
+  readonly deckUpgrades: string[];
+  readonly abilityUpgrades: string[];
+  readonly handUpgrades: string[];
+  readonly proficiencyUpgrades: string[];
+  readonly powerUpgrades: string[];
 
-  constructor(character: Character) {
+  constructor(
+    character: Character,
+    heroPoints?: number,
+    role?: Role,
+    deckUpgrades?: string[],
+    abilityUpgrades?: string[],
+    handUpgrades?: string[],
+    proficiencyUpgrades?: string[],
+    powerUpgrades?: string[]
+  ) {
     this.character = character;
+    this.heroPoints = heroPoints || 0;
+    this.role = role || undefined;
+    this.deckUpgrades = deckUpgrades || [];
+    this.abilityUpgrades = abilityUpgrades || [];
+    this.handUpgrades = handUpgrades || [];
+    this.proficiencyUpgrades = proficiencyUpgrades || [];
+    this.powerUpgrades = powerUpgrades || [];
   }
 
   getAbilityModifier(abilityType: AbilityType): number {
@@ -83,16 +90,21 @@ export class CharacterSheet {
     }
   }
 
-  togglePower(upgrade: PowerUpgrade) {
-    if (this.powerUpgrades.includes(upgrade)) {
-      const index = this.powerUpgrades.indexOf(upgrade);
+  togglePower(upgradeId: string, powerId: string) {
+    const upgradeSerialized = this.serializePowerUpgrade(upgradeId, powerId);
+    if (this.powerUpgrades.includes(upgradeSerialized)) {
+      const index = this.powerUpgrades.indexOf(upgradeSerialized);
       this.powerUpgrades.splice(index, 1);
     } else {
       if (this.heroPoints < 1) {
         return;
       }
-      this.powerUpgrades.push(upgrade);
+      this.powerUpgrades.push(upgradeSerialized);
       this.heroPoints--;
     }
+  }
+
+  serializePowerUpgrade(upgradeId: string, powerId: string) {
+    return `${powerId}|${upgradeId}`;
   }
 }

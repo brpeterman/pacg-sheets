@@ -8,7 +8,7 @@ export interface Character {
   readonly handSize: number;
   readonly proficiencies: ProficiencyType[];
   readonly powers: Power[];
-  readonly deck: Map<CardType, number>;
+  readonly deck: { [key in CardType]: number };
   readonly deckUpgrades: { [key: string]: DeckUpgrade };
   readonly abilityUpgrades: { [key: string]: AbilityUpgrade };
   readonly handUpgrades: { [key: string]: HandUpgrade };

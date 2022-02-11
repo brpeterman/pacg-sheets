@@ -28,7 +28,7 @@ export class HandSize extends React.Component<HandSizeProps> {
             return (
               <div className="hand-size-item">
                 <UpgradeBox
-                  disabled={this.props.heroPoints < 1}
+                  heroPoints={this.props.heroPoints}
                   onChange={(e) => this.props.handUpgradeHandler(upgradeId, e)}
                   purchased={purchased}
                 />

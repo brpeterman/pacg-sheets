@@ -63,7 +63,7 @@ export class Abilities extends React.Component<AbilitiesProps> {
                   return (
                     <div className="ability-upgrade">
                       <UpgradeBox
-                        disabled={this.props.heroPoints < 1}
+                        heroPoints={this.props.heroPoints}
                         onChange={(e) =>
                           this.props.abilityUpgradeHandler(upgradeEntry.id, e)
                         }
