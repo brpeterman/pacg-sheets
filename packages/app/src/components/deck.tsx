@@ -5,18 +5,21 @@ import { CardType, DeckUpgrade } from "../model/characters";
 export interface DeckProps {
   readonly baseDeck: Map<CardType, number>;
   readonly favoredCards: CardType[];
-  readonly availableUpgrades: DeckUpgrade[];
-  readonly purchasedUpgrades: DeckUpgrade[];
+  readonly availableUpgrades: { [key: string]: DeckUpgrade };
+  readonly purchasedUpgrades: string[];
+  readonly heroPoints: number;
+  readonly deckUpgradeHandler: (
+    u: string,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => void;
 }
 
 export class Deck extends React.Component<DeckProps> {
-  constructor(props: DeckProps) {
-    super(props);
-  }
-
   getCardTypeLimit(cardType: CardType): number {
-    return this.props.purchasedUpgrades
-      .filter((card) => card.cardType == cardType)
+    return Object.keys(this.props.availableUpgrades)
+      .filter((upgradeId) => this.props.purchasedUpgrades.includes(upgradeId))
+      .map((upgradeId) => this.props.availableUpgrades[upgradeId]!)
+      .filter((deckUpgrade) => deckUpgrade.cardType === cardType)
       .reduce(
         (sum, current) => sum + current.modifier,
         this.props.baseDeck.get(cardType) || 0
@@ -34,36 +37,41 @@ export class Deck extends React.Component<DeckProps> {
     ];
     return (
       <section className="deck-container">
-        <div className="deck-header">
+        <div className="deck-header heading">
           <h2>Deck List</h2>
           <div className="favored-cards">
-            {this.props.favoredCards.join(", ")}
+            Favored cards: {this.props.favoredCards.join(", ")}
           </div>
         </div>
         {cardTypes.map((cardType) => {
           const total = this.getCardTypeLimit(cardType);
-          const purchasedUpgrades = this.props.purchasedUpgrades.filter(
-            (upgrade) => upgrade.cardType == cardType
-          );
-          const availableUpgrades = this.props.availableUpgrades.filter(
-            (upgrade) => upgrade.cardType == cardType
-          );
+          const availableUpgrades = Object.keys(this.props.availableUpgrades)
+            .map((upgradeId) => {
+              return {
+                id: upgradeId,
+                upgrade: this.props.availableUpgrades[upgradeId]!,
+              };
+            })
+            .filter((entry) => entry.upgrade.cardType === cardType);
           return (
             <div className="deck-row">
               <div className="deck-card-type">{cardType.toString()}</div>
               <div className="deck-card-type-limit">{total}</div>
               <div className="deck-upgrades">
-                {availableUpgrades.map((availableUpgrade, index) => {
-                  const purchased = !!purchasedUpgrades[index];
-                  const onChange = () => {};
+                {availableUpgrades.map((upgradeEntry) => {
+                  const purchased = this.props.purchasedUpgrades.includes(
+                    upgradeEntry.id
+                  );
                   return (
                     <div className="deck-upgrade">
                       <UpgradeBox
-                        upgrade={availableUpgrade}
-                        onChange={onChange}
+                        disabled={this.props.heroPoints < 1}
+                        onChange={(e) =>
+                          this.props.deckUpgradeHandler(upgradeEntry.id, e)
+                        }
                         purchased={purchased}
                       />
-                      +{availableUpgrade.modifier}
+                      +{upgradeEntry.upgrade.modifier}
                     </div>
                   );
                 })}

@@ -11,11 +11,11 @@ import {
 const Compatriot: Role = {
   name: "Compatriot",
   description: `"Sword and board" often leads to "room and board."`,
-  handUpgrades: [
-    {
+  handUpgrades: {
+    "role-hand-1": {
       modifier: 1,
     },
-  ],
+  },
   classPowerOverrides: [
     {
       powerId: "power-1",
@@ -78,11 +78,11 @@ const DrunkenAvenger: Role = {
   name: "Drunken Avenger",
   description: `A good tavern always has cheap alcohol, friendly staff, and easily 
   replaced furniture`,
-  handUpgrades: [
-    {
+  handUpgrades: {
+    "role-hand-1": {
       modifier: 1,
     },
-  ],
+  },
   classPowerOverrides: [
     {
       powerId: "power-1",
@@ -222,113 +222,119 @@ export const Valeros: Character = {
     },
   ],
 
-  deckUpgrades: [
-    {
+  deckUpgrades: {
+    "weapon-1": {
       cardType: CardType.Weapon,
       modifier: 1,
     },
-    {
+    "weapon-2": {
       cardType: CardType.Weapon,
       modifier: 1,
     },
-    {
+    "weapon-3": {
       cardType: CardType.Weapon,
       modifier: 1,
     },
-    {
+    "armor-1": {
       cardType: CardType.Armor,
       modifier: 1,
     },
-    {
+    "armor-2": {
       cardType: CardType.Armor,
       modifier: 1,
     },
-    {
+    "item-1": {
       cardType: CardType.Item,
       modifier: 1,
     },
-    {
+    "item-2": {
       cardType: CardType.Item,
       modifier: 1,
     },
-    {
+    "ally-1": {
       cardType: CardType.Ally,
       modifier: 1,
     },
-    {
+    "ally-2": {
       cardType: CardType.Ally,
       modifier: 1,
     },
-    {
+    "blessing-1": {
       cardType: CardType.Blessing,
       modifier: 1,
     },
-  ],
+  },
 
-  abilityUpgrades: [
-    {
+  abilityUpgrades: {
+    "str-1": {
       ablilityType: AbilityType.Strength,
       modifier: 1,
     },
-    {
+    "str-2": {
       ablilityType: AbilityType.Strength,
       modifier: 1,
     },
-    {
+    "str-3": {
       ablilityType: AbilityType.Strength,
       modifier: 1,
     },
-    {
+    "str-4": {
       ablilityType: AbilityType.Strength,
       modifier: 1,
     },
-    {
+    "dex-1": {
       ablilityType: AbilityType.Dexterity,
       modifier: 1,
     },
-    {
+    "dex-2": {
       ablilityType: AbilityType.Dexterity,
       modifier: 1,
     },
-    {
+    "dex-3": {
       ablilityType: AbilityType.Dexterity,
       modifier: 1,
     },
-    {
+    "con-1": {
       ablilityType: AbilityType.Constitution,
       modifier: 1,
     },
-    {
+    "con-2": {
       ablilityType: AbilityType.Constitution,
       modifier: 1,
     },
-    {
+    "con-3": {
       ablilityType: AbilityType.Constitution,
       modifier: 1,
     },
-    {
+    "int-1": {
       ablilityType: AbilityType.Intelligence,
       modifier: 1,
     },
-    {
+    "int-2": {
       ablilityType: AbilityType.Intelligence,
       modifier: 1,
     },
-    {
+    "wis-1": {
       ablilityType: AbilityType.Wisdom,
       modifier: 1,
     },
-    {
+    "cha-1": {
       ablilityType: AbilityType.Charisma,
       modifier: 1,
     },
-    {
+    "cha-2": {
       ablilityType: AbilityType.Charisma,
       modifier: 1,
     },
-  ],
+  },
 
-  proficiencyUpgrades: [],
+  handUpgrades: {
+    "class-hand": {
+      modifier: 1,
+    },
+  },
+
+  proficiencyUpgrades: {},
 
   powerUpgrades: [
     {

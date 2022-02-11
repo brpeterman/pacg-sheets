@@ -9,9 +9,10 @@ export interface Character {
   readonly proficiencies: ProficiencyType[];
   readonly powers: Power[];
   readonly deck: Map<CardType, number>;
-  readonly deckUpgrades: DeckUpgrade[];
-  readonly abilityUpgrades: AbilityUpgrade[];
-  readonly proficiencyUpgrades: ProficiencyUpgrade[];
+  readonly deckUpgrades: { [key: string]: DeckUpgrade };
+  readonly abilityUpgrades: { [key: string]: AbilityUpgrade };
+  readonly handUpgrades: { [key: string]: HandUpgrade };
+  readonly proficiencyUpgrades: { [key: string]: ProficiencyUpgrade };
   readonly powerUpgrades: PowerUpgrade[];
   readonly roles: Role[];
 }
@@ -23,54 +24,54 @@ export interface Ability {
 }
 
 export enum AbilityType {
-  Strength,
-  Dexterity,
-  Constitution,
-  Intelligence,
-  Wisdom,
-  Charisma,
+  Strength = "Strength",
+  Dexterity = "Dexterity",
+  Constitution = "Constitution",
+  Intelligence = "Intelligence",
+  Wisdom = "Wisdom",
+  Charisma = "Charisma",
 }
 
 export enum Die {
-  D4,
-  D6,
-  D8,
-  D10,
-  D12,
+  D4 = "D4",
+  D6 = "D6",
+  D8 = "D8",
+  D10 = "D10",
+  D12 = "D12",
 }
 
 export enum SkillType {
-  Melee,
-  Ranged,
-  Disable,
-  Acrobatics,
-  Stealth,
-  Fortitude,
-  Arcane,
-  Craft,
-  Knowledge,
-  Survival,
-  Divine,
-  Perception,
-  Diplomacy,
+  Melee = "Melee",
+  Ranged = "Ranged",
+  Disable = "Disable",
+  Acrobatics = "Acrobatics",
+  Stealth = "Stealth",
+  Fortitude = "Fortitude",
+  Arcane = "Arcane",
+  Craft = "Craft",
+  Knowledge = "Knowledge",
+  Survival = "Survival",
+  Divine = "Divine",
+  Perception = "Perception",
+  Diplomacy = "Diplomacy",
 }
 
 export enum CardType {
-  Weapon,
-  Spell,
-  Armor,
-  Item,
-  Ally,
-  Blessing,
+  Weapon = "Weapon",
+  Spell = "Spell",
+  Armor = "Armor",
+  Item = "Item",
+  Ally = "Ally",
+  Blessing = "Blessing",
 }
 
 export enum ProficiencyType {
-  Armor,
-  Weapon,
-  Divine,
-  Arcane,
-  Instrument,
-  Alchemical,
+  Armor = "Armor",
+  Weapon = "Weapon",
+  Divine = "Divine",
+  Arcane = "Arcane",
+  Instrument = "Instrument",
+  Alchemical = "Alchemical",
 }
 
 export interface Power {
@@ -104,7 +105,7 @@ export interface PowerUpgrade {
 export interface Role {
   readonly name: string;
   readonly description: string;
-  readonly handUpgrades: HandUpgrade[];
+  readonly handUpgrades: { [key: string]: HandUpgrade };
   readonly classPowerOverrides: Power[];
   readonly rolePowers: Power[];
   readonly rolePowerUpgrades: PowerUpgrade[];

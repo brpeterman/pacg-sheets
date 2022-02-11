@@ -1,0 +1,144 @@
+body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.heading {
+    font-size: 16px;
+    background-color: green;
+    color: white;
+    padding: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: inherit;
+    padding: inherit;
+    margin: inherit;
+}
+
+.hero-points-container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+
+    h2 {
+        flex: auto;
+        text-align: left;
+    }
+
+    .hero-points-minus, .hero-points-plus {
+        font-weight: bold;
+        cursor: pointer;
+        user-select: none;
+        width: 15px;
+        height: 15px;
+    }
+
+    .hero-points-display {}
+}
+
+.deck-container {
+    .deck-header {
+        display: flex;
+        flex-direction: row;
+
+        h2 {
+            flex: auto;
+        }
+
+        div {
+            flex: auto;
+
+            &.favored-cards {
+                text-align: right;
+            }
+        }
+    }
+
+    .deck-row {
+        display: flex;
+        flex-direction: row;
+        font-size: 16px;
+        padding: 2px;
+        border-bottom: 1px solid lightgray;
+
+        div {
+            flex: auto;
+
+            &.deck-card-type {
+                max-width: 80px;
+            }
+
+            &.deck-card-type-limit {
+                max-width: 20px;
+            }
+
+            &.deck-upgrades {
+                .deck-upgrade {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}
+
+.abilities-container {
+    .abilities-row {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid lightgray;
+
+        .ability-primary-title {
+            width: 120px;
+            font-weight: bold;
+        }
+    
+        .ability-primary-die {
+            width: 40px;
+            text-align: right;
+            padding-right: 5px;
+        }
+
+        .ability-primary-upgrades {
+            .ability-upgrade {
+                display: inline-block;
+            }
+        }
+
+        .ability-secondary-row {
+            display: flex;
+            flex-direction: row;
+
+            div {
+                flex: auto;
+
+                &.ability-secondary-modifier {
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+.hand-size-container {
+    .hand-size-row {
+        display: flex;
+        flex-direction: row;
+
+        .hand-size-item {
+            min-width: 30px;
+        }
+    }
+}
+
+.proficiencies-container {
+    .proficiencies-row {
+        display: flex;
+        flex-direction: row;
+
+        .proficiencies-item {
+            min-width: 100px;
+        }
+    }
+}

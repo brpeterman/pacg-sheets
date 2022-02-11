@@ -6,6 +6,7 @@
   "scripts": {
     "bootstrap": "npx lerna bootstrap",
     "prebuild": "npm run format && npm run bootstrap",
+    "build": "npx lerna run build",
     "format": "npx prettier --w packages/**/*.{ts,js,tsx}",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
