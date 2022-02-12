@@ -7,11 +7,13 @@ export interface PowersProps {
   readonly availableUpgrades: PowerUpgrade[];
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
+  readonly collapsed: boolean;
   readonly powerUpgradeHandler: (
     u: string,
     p: string,
     e: React.ChangeEvent<HTMLInputElement>
   ) => void;
+  readonly toggleCollapseHandler: (s: string) => void;
 }
 
 export class Powers extends React.Component<PowersProps> {
@@ -68,16 +70,21 @@ export class Powers extends React.Component<PowersProps> {
   render() {
     return (
       <section className="powers-container">
-        <div className="powers-header heading">
+        <div
+          className="powers-header heading"
+          onClick={() => this.props.toggleCollapseHandler("powers")}
+        >
           <h2>Powers</h2>
         </div>
-        {this.props.powers.map((power) => {
-          return (
-            <p className="power-item">
-              {this.powerToSegments(power).map((segment) => segment)}
-            </p>
-          );
-        })}
+        <div className={this.props.collapsed ? "hidden" : ""}>
+          {this.props.powers.map((power) => {
+            return (
+              <p className="power-item" key={power.powerId}>
+                {this.powerToSegments(power)}
+              </p>
+            );
+          })}
+        </div>
       </section>
     );
   }

@@ -8,10 +8,12 @@ export interface DeckProps {
   readonly availableUpgrades: { [key: string]: DeckUpgrade };
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
+  readonly collapsed: boolean;
   readonly deckUpgradeHandler: (
     u: string,
     e: React.ChangeEvent<HTMLInputElement>
   ) => void;
+  readonly toggleCollapseHandler: (s: string) => void;
 }
 
 export class Deck extends React.Component<DeckProps> {
@@ -37,48 +39,53 @@ export class Deck extends React.Component<DeckProps> {
     ];
     return (
       <section className="deck-container">
-        <div className="deck-header heading">
+        <div
+          className="deck-header heading"
+          onClick={() => this.props.toggleCollapseHandler("deck")}
+        >
           <h2>Deck List</h2>
           <div className="favored-cards">
             Favored cards: {this.props.favoredCards.join(", ")}
           </div>
         </div>
-        {cardTypes.map((cardType) => {
-          const total = this.getCardTypeLimit(cardType);
-          const availableUpgrades = Object.keys(this.props.availableUpgrades)
-            .map((upgradeId) => {
-              return {
-                id: upgradeId,
-                upgrade: this.props.availableUpgrades[upgradeId]!,
-              };
-            })
-            .filter((entry) => entry.upgrade.cardType === cardType);
-          return (
-            <div className="deck-row">
-              <div className="deck-card-type">{cardType.toString()}</div>
-              <div className="deck-card-type-limit">{total}</div>
-              <div className="deck-upgrades">
-                {availableUpgrades.map((upgradeEntry) => {
-                  const purchased = this.props.purchasedUpgrades.includes(
-                    upgradeEntry.id
-                  );
-                  return (
-                    <div className="deck-upgrade">
-                      <UpgradeBox
-                        heroPoints={this.props.heroPoints}
-                        onChange={(e) =>
-                          this.props.deckUpgradeHandler(upgradeEntry.id, e)
-                        }
-                        purchased={purchased}
-                      />
-                      +{upgradeEntry.upgrade.modifier}
-                    </div>
-                  );
-                })}
+        <div className={this.props.collapsed ? "hidden" : ""}>
+          {cardTypes.map((cardType) => {
+            const total = this.getCardTypeLimit(cardType);
+            const availableUpgrades = Object.keys(this.props.availableUpgrades)
+              .map((upgradeId) => {
+                return {
+                  id: upgradeId,
+                  upgrade: this.props.availableUpgrades[upgradeId]!,
+                };
+              })
+              .filter((entry) => entry.upgrade.cardType === cardType);
+            return (
+              <div className="deck-row" key={cardType}>
+                <div className="deck-card-type">{cardType.toString()}</div>
+                <div className="deck-card-type-limit">{total}</div>
+                <div className="deck-upgrades">
+                  {availableUpgrades.map((upgradeEntry) => {
+                    const purchased = this.props.purchasedUpgrades.includes(
+                      upgradeEntry.id
+                    );
+                    return (
+                      <div className="deck-upgrade" key={upgradeEntry.id}>
+                        <UpgradeBox
+                          heroPoints={this.props.heroPoints}
+                          onChange={(e) =>
+                            this.props.deckUpgradeHandler(upgradeEntry.id, e)
+                          }
+                          purchased={purchased}
+                        />
+                        +{upgradeEntry.upgrade.modifier}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </section>
     );
   }

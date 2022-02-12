@@ -2,6 +2,10 @@ body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.hidden {
+    display: none;
+}
+
 .heading {
     font-size: 16px;
     background-color: green;
@@ -9,6 +13,8 @@ body {
     padding: 2px;
     text-transform: uppercase;
     font-weight: bold;
+    cursor: pointer;
+    user-select: none;
 }
 
 h2 {
@@ -18,21 +24,22 @@ h2 {
 }
 
 .hero-points-container {
-    display: flex;
-    flex-direction: row;
-    text-align: center;
+    .hero-points-row {
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        
+        &.hidden {
+            display: none;
+        }
 
-    h2 {
-        flex: auto;
-        text-align: left;
-    }
-
-    .hero-points-minus, .hero-points-plus {
-        font-weight: bold;
-        cursor: pointer;
-        user-select: none;
-        width: 15px;
-        height: 15px;
+        .hero-points-minus, .hero-points-plus {
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            width: 15px;
+            height: 15px;
+        }
     }
 
     .hero-points-display {}
@@ -89,9 +96,22 @@ h2 {
         flex-direction: row;
         border-bottom: 1px solid lightgray;
 
-        .ability-primary-title {
+        .ability-primary-row {
+            display: flex;
+            flex-direction: row;
             width: 120px;
-            font-weight: bold;
+
+            div {
+                flex: auto;
+
+                &.ability-primary-title {
+                    font-weight: bold;
+                }
+
+                &.ability-primary-modifier {
+                    text-align: right;
+                }
+            }
         }
     
         .ability-primary-die {

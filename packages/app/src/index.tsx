@@ -114,13 +114,26 @@ class App extends React.Component<AppProps, AppState> {
     this.saveState();
   };
 
+  toggleCollapseHandler = (sectionName: string) => {
+    const activeSheet = this.state.sheets[this.state.activeSheetIndex];
+    if (activeSheet.collapsedSections.includes(sectionName)) {
+      const index = activeSheet.collapsedSections.indexOf(sectionName);
+      activeSheet.collapsedSections.splice(index, 1);
+    } else {
+      activeSheet.collapsedSections.push(sectionName);
+    }
+    this.saveState();
+  };
+
   render() {
     const activeSheet = this.state.sheets[this.state.activeSheetIndex];
     return (
       <div>
         <HeroPoints
           points={activeSheet.heroPoints}
+          collapsed={activeSheet.collapsedSections.includes("heroPoints")}
           pointsChangeHandler={this.pointsChangedHandler.bind(this)}
+          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
         />
         <Deck
           baseDeck={activeSheet.character.deck}
@@ -128,35 +141,45 @@ class App extends React.Component<AppProps, AppState> {
           purchasedUpgrades={activeSheet.deckUpgrades}
           favoredCards={activeSheet.character.favoredCards}
           heroPoints={activeSheet.heroPoints}
+          collapsed={activeSheet.collapsedSections.includes("deck")}
           deckUpgradeHandler={this.deckUpgradeHandler.bind(this)}
+          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
         />
         <Abilities
           baseAbilities={activeSheet.character.abilities}
           availableUpgrades={activeSheet.character.abilityUpgrades}
           purchasedUpgrades={activeSheet.abilityUpgrades}
           heroPoints={activeSheet.heroPoints}
+          collapsed={activeSheet.collapsedSections.includes("abilities")}
           abilityUpgradeHandler={this.abilityUpgradeHandler.bind(this)}
+          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
         />
         <HandSize
           defaultSize={activeSheet.character.handSize}
           availableUpgrades={activeSheet.character.handUpgrades}
           purchasedUpgrades={activeSheet.handUpgrades}
           heroPoints={activeSheet.heroPoints}
+          collapsed={activeSheet.collapsedSections.includes("handSize")}
           handUpgradeHandler={this.handSizeUpgradeHandler.bind(this)}
+          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
         />
         <Proficiencies
           baseProficiencies={activeSheet.character.proficiencies}
           availableUpgrades={activeSheet.character.proficiencyUpgrades}
           purchasedUpgrades={activeSheet.proficiencyUpgrades}
           heroPoints={activeSheet.heroPoints}
+          collapsed={activeSheet.collapsedSections.includes("proficiencies")}
           proficiencyUpgradeHandler={this.proficiencyUpgradeHandler.bind(this)}
+          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
         />
         <Powers
           powers={activeSheet.character.powers}
           availableUpgrades={activeSheet.character.powerUpgrades}
           purchasedUpgrades={activeSheet.powerUpgrades}
           heroPoints={activeSheet.heroPoints}
+          collapsed={activeSheet.collapsedSections.includes("powers")}
           powerUpgradeHandler={this.powersUpgradeHandler.bind(this)}
+          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
         />
       </div>
     );

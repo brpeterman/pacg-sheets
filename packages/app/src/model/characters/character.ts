@@ -20,7 +20,7 @@ export interface Character {
 export interface Ability {
   readonly abilityType: AbilityType;
   readonly die: Die;
-  readonly proficiencies: Map<SkillType, number>;
+  readonly proficiencies: { [key in SkillType]?: number };
 }
 
 export enum AbilityType {

@@ -9,6 +9,7 @@ export class CharacterSheet {
   readonly handUpgrades: string[];
   readonly proficiencyUpgrades: string[];
   readonly powerUpgrades: string[];
+  readonly collapsedSections: string[];
 
   constructor(
     character: Character,
@@ -18,7 +19,8 @@ export class CharacterSheet {
     abilityUpgrades?: string[],
     handUpgrades?: string[],
     proficiencyUpgrades?: string[],
-    powerUpgrades?: string[]
+    powerUpgrades?: string[],
+    collapsedSections?: string[]
   ) {
     this.character = character;
     this.heroPoints = heroPoints || 0;
@@ -28,6 +30,7 @@ export class CharacterSheet {
     this.handUpgrades = handUpgrades || [];
     this.proficiencyUpgrades = proficiencyUpgrades || [];
     this.powerUpgrades = powerUpgrades || [];
+    this.collapsedSections = collapsedSections || [];
   }
 
   getAbilityModifier(abilityType: AbilityType): number {

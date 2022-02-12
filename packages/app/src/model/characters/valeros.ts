@@ -174,32 +174,32 @@ export const Valeros: Character = {
     {
       abilityType: AbilityType.Strength,
       die: Die.D10,
-      proficiencies: new Map<SkillType, number>([[SkillType.Melee, 2]]),
+      proficiencies: { [SkillType.Melee]: 2 },
     },
     {
       abilityType: AbilityType.Dexterity,
       die: Die.D8,
-      proficiencies: new Map<SkillType, number>([[SkillType.Ranged, 1]]),
+      proficiencies: { [SkillType.Ranged]: 1 },
     },
     {
       abilityType: AbilityType.Constitution,
       die: Die.D8,
-      proficiencies: new Map<SkillType, number>([[SkillType.Fortitude, 2]]),
+      proficiencies: { [SkillType.Fortitude]: 2 },
     },
     {
       abilityType: AbilityType.Intelligence,
       die: Die.D4,
-      proficiencies: new Map<SkillType, number>(),
+      proficiencies: {},
     },
     {
       abilityType: AbilityType.Wisdom,
       die: Die.D6,
-      proficiencies: new Map<SkillType, number>(),
+      proficiencies: {},
     },
     {
       abilityType: AbilityType.Charisma,
       die: Die.D10,
-      proficiencies: new Map<SkillType, number>([[SkillType.Diplomacy, 2]]),
+      proficiencies: { [SkillType.Diplomacy]: 2 },
     },
   ],
 
