@@ -8,10 +8,7 @@ export interface ProficienciesProps {
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
   readonly collapsed: boolean;
-  readonly proficiencyUpgradeHandler: (
-    u: string,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  readonly proficiencyUpgradeHandler: (u: string) => void;
   readonly toggleCollapseHandler: (s: string) => void;
 }
 
@@ -46,11 +43,11 @@ export class Proficiencies extends React.Component<ProficienciesProps> {
                   <UpgradeBox
                     heroPoints={this.props.heroPoints}
                     onChange={(e) =>
-                      this.props.proficiencyUpgradeHandler(upgradeId, e)
+                      this.props.proficiencyUpgradeHandler(upgradeId)
                     }
                     purchased={purchased}
                   />
-                  +{upgrade.proficiencyType}
+                  {upgrade.proficiencyType}
                 </div>
               );
             })}

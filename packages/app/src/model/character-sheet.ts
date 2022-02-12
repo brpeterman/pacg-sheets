@@ -1,9 +1,9 @@
-import { AbilityType, Character, Role } from "./characters";
+import { AbilityType, Character } from "./characters";
 
 export class CharacterSheet {
   heroPoints: number = 0;
   character: Character;
-  readonly role?: Role;
+  role?: string;
   readonly deckUpgrades: string[];
   readonly abilityUpgrades: string[];
   readonly handUpgrades: string[];
@@ -14,7 +14,7 @@ export class CharacterSheet {
   constructor(
     character: Character,
     heroPoints?: number,
-    role?: Role,
+    role?: string,
     deckUpgrades?: string[],
     abilityUpgrades?: string[],
     handUpgrades?: string[],

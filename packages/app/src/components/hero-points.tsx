@@ -26,7 +26,7 @@ export class HeroPoints extends React.Component<HeroPointsProps> {
             className="hero-points-minus"
             onClick={() => this.props.pointsChangeHandler(-1)}
           >
-            -
+            &#8211;
           </div>
           <div className="hero-points-display">{this.props.points}</div>
           <div

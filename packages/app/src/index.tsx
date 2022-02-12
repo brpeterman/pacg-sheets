@@ -1,27 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {
-  Abilities,
-  Deck,
-  HandSize,
-  HeroPoints,
-  Powers,
-  Proficiencies,
-} from "./components";
+import { Sheet } from "./components";
+import { Menu } from "./components/menu";
 import { CharacterSheet } from "./model";
-import { Valeros } from "./model/characters";
+import { Characters } from "./model/characters";
 import "./style.scss";
+
+const VERSION = "0.1.0";
 
 export interface AppProps {}
 
 export interface AppState {
+  version: string;
   sheets: CharacterSheet[];
   activeSheetIndex: number;
 }
 
 class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
+  componentDidMount() {
     this.loadState();
   }
 
@@ -29,158 +25,123 @@ class App extends React.Component<AppProps, AppState> {
     const serializedState = window.localStorage.getItem("appState");
     if (serializedState) {
       const storedState = JSON.parse(serializedState);
-      const sheets = storedState.sheets.map(
-        (sheetData: CharacterSheet) =>
-          new CharacterSheet(
-            sheetData.character,
-            sheetData.heroPoints,
-            sheetData.role,
-            sheetData.deckUpgrades,
-            sheetData.abilityUpgrades,
-            sheetData.handUpgrades,
-            sheetData.proficiencyUpgrades,
-            sheetData.powerUpgrades
-          )
-      );
-      this.state = {
+      if (!storedState.version) {
+        this.setState({
+          version: VERSION,
+          sheets: [],
+          activeSheetIndex: 0,
+        });
+        return;
+      }
+      const sheets = storedState.sheets.map((sheetData: any) => {
+        const charName = sheetData.character as string;
+        return new CharacterSheet(
+          Characters[charName],
+          sheetData.heroPoints,
+          sheetData.role,
+          sheetData.deckUpgrades,
+          sheetData.abilityUpgrades,
+          sheetData.handUpgrades,
+          sheetData.proficiencyUpgrades,
+          sheetData.powerUpgrades
+        );
+      });
+      this.setState({
+        version: VERSION,
         sheets,
         activeSheetIndex: storedState.activeSheetIndex,
-      };
+      });
     } else {
-      this.state = {
-        sheets: [new CharacterSheet(Valeros)],
+      this.setState({
+        version: VERSION,
+        sheets: [],
         activeSheetIndex: 0,
-      };
+      });
     }
   }
 
   saveState() {
-    this.setState(this.state);
-    localStorage.setItem("appState", JSON.stringify(this.state));
+    const savedSheets = this.state.sheets.map((sheet) => {
+      return {
+        ...sheet,
+        character: sheet.character.name,
+      };
+    });
+    localStorage.setItem(
+      "appState",
+      JSON.stringify({
+        ...this.state,
+        sheets: savedSheets,
+      })
+    );
   }
 
-  deckUpgradeHandler = (
-    upgrade: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const activeSheet = this.state.sheets[this.state.activeSheetIndex];
-    activeSheet.toggleDeckUpgrade(upgrade);
-    this.saveState();
+  clearState() {
+    this.setState(
+      {
+        version: VERSION,
+        sheets: [],
+        activeSheetIndex: 0,
+      },
+      () => this.saveState()
+    );
+  }
+
+  updateSheet = (sheet: CharacterSheet) => {
+    const sheets = this.state.sheets;
+    sheets[this.state.activeSheetIndex] = sheet;
+    this.setState(
+      {
+        ...this.state,
+        sheets,
+      },
+      () => this.saveState()
+    );
   };
 
-  pointsChangedHandler = (diff: number) => {
-    const activeSheet = this.state.sheets[this.state.activeSheetIndex];
-    const newValue = activeSheet.heroPoints + diff;
-    if (newValue >= 0) {
-      activeSheet.heroPoints = newValue;
-    }
-    this.saveState();
+  switchSheet = (sheet: CharacterSheet, index: number) => {
+    this.setState(
+      {
+        ...this.state,
+        activeSheetIndex: index,
+      },
+      () => this.saveState()
+    );
   };
 
-  abilityUpgradeHandler = (
-    upgrade: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const activeSheet = this.state.sheets[this.state.activeSheetIndex];
-    activeSheet.toggleAbilityUpgrade(upgrade);
-    this.saveState();
-  };
-
-  handSizeUpgradeHandler = (
-    upgrade: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const activeSheet = this.state.sheets[this.state.activeSheetIndex];
-    activeSheet.toggleHandUpgrade(upgrade);
-    this.saveState();
-  };
-
-  proficiencyUpgradeHandler = (
-    upgrade: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const activeSheet = this.state.sheets[this.state.activeSheetIndex];
-    activeSheet.toggleProficiencyUpgrade(upgrade);
-    this.saveState();
-  };
-
-  powersUpgradeHandler = (
-    upgradeId: string,
-    powerId: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const activeSheet = this.state.sheets[this.state.activeSheetIndex];
-    activeSheet.togglePower(upgradeId, powerId);
-    this.saveState();
-  };
-
-  toggleCollapseHandler = (sectionName: string) => {
-    const activeSheet = this.state.sheets[this.state.activeSheetIndex];
-    if (activeSheet.collapsedSections.includes(sectionName)) {
-      const index = activeSheet.collapsedSections.indexOf(sectionName);
-      activeSheet.collapsedSections.splice(index, 1);
-    } else {
-      activeSheet.collapsedSections.push(sectionName);
-    }
-    this.saveState();
+  addSheet = (sheet: CharacterSheet) => {
+    const sheets = this.state.sheets;
+    sheets.push(sheet);
+    this.setState(
+      {
+        ...this.state,
+        sheets,
+        activeSheetIndex: sheets.length - 1,
+      },
+      () => this.saveState()
+    );
   };
 
   render() {
+    if (!this.state) {
+      return null;
+    }
     const activeSheet = this.state.sheets[this.state.activeSheetIndex];
     return (
       <div>
-        <HeroPoints
-          points={activeSheet.heroPoints}
-          collapsed={activeSheet.collapsedSections.includes("heroPoints")}
-          pointsChangeHandler={this.pointsChangedHandler.bind(this)}
-          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
+        <Menu
+          sheets={this.state.sheets}
+          activeSheetIndex={this.state.activeSheetIndex}
+          sheetSwitchedHandler={this.switchSheet.bind(this)}
+          stateClearedHandler={this.clearState.bind(this)}
+          sheetAddedHandler={this.addSheet.bind(this)}
         />
-        <Deck
-          baseDeck={activeSheet.character.deck}
-          availableUpgrades={activeSheet.character.deckUpgrades}
-          purchasedUpgrades={activeSheet.deckUpgrades}
-          favoredCards={activeSheet.character.favoredCards}
-          heroPoints={activeSheet.heroPoints}
-          collapsed={activeSheet.collapsedSections.includes("deck")}
-          deckUpgradeHandler={this.deckUpgradeHandler.bind(this)}
-          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
-        />
-        <Abilities
-          baseAbilities={activeSheet.character.abilities}
-          availableUpgrades={activeSheet.character.abilityUpgrades}
-          purchasedUpgrades={activeSheet.abilityUpgrades}
-          heroPoints={activeSheet.heroPoints}
-          collapsed={activeSheet.collapsedSections.includes("abilities")}
-          abilityUpgradeHandler={this.abilityUpgradeHandler.bind(this)}
-          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
-        />
-        <HandSize
-          defaultSize={activeSheet.character.handSize}
-          availableUpgrades={activeSheet.character.handUpgrades}
-          purchasedUpgrades={activeSheet.handUpgrades}
-          heroPoints={activeSheet.heroPoints}
-          collapsed={activeSheet.collapsedSections.includes("handSize")}
-          handUpgradeHandler={this.handSizeUpgradeHandler.bind(this)}
-          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
-        />
-        <Proficiencies
-          baseProficiencies={activeSheet.character.proficiencies}
-          availableUpgrades={activeSheet.character.proficiencyUpgrades}
-          purchasedUpgrades={activeSheet.proficiencyUpgrades}
-          heroPoints={activeSheet.heroPoints}
-          collapsed={activeSheet.collapsedSections.includes("proficiencies")}
-          proficiencyUpgradeHandler={this.proficiencyUpgradeHandler.bind(this)}
-          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
-        />
-        <Powers
-          powers={activeSheet.character.powers}
-          availableUpgrades={activeSheet.character.powerUpgrades}
-          purchasedUpgrades={activeSheet.powerUpgrades}
-          heroPoints={activeSheet.heroPoints}
-          collapsed={activeSheet.collapsedSections.includes("powers")}
-          powerUpgradeHandler={this.powersUpgradeHandler.bind(this)}
-          toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
-        />
+        {this.state?.sheets?.length > 0 ? (
+          <Sheet
+            activeSheet={activeSheet}
+            sheetUpdatedHandler={this.updateSheet.bind(this)}
+          />
+        ) : null}
       </div>
     );
   }

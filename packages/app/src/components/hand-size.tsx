@@ -8,10 +8,7 @@ export interface HandSizeProps {
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
   readonly collapsed: boolean;
-  readonly handUpgradeHandler: (
-    u: string,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  readonly handUpgradeHandler: (u: string) => void;
   readonly toggleCollapseHandler: (s: string) => void;
 }
 
@@ -42,9 +39,7 @@ export class HandSize extends React.Component<HandSizeProps> {
                 <div className="hand-size-item" key={upgradeId}>
                   <UpgradeBox
                     heroPoints={this.props.heroPoints}
-                    onChange={(e) =>
-                      this.props.handUpgradeHandler(upgradeId, e)
-                    }
+                    onChange={(e) => this.props.handUpgradeHandler(upgradeId)}
                     purchased={purchased}
                   />
                   +{upgrade.modifier}

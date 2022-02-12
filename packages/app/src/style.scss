@@ -1,5 +1,7 @@
 body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    margin: 0px;
 }
 
 .hidden {
@@ -23,6 +25,62 @@ h2 {
     margin: inherit;
 }
 
+.blur {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    opacity: 80%;
+    backdrop-filter: blur(10px); // Firefox doesn't support this :(
+}
+
+.menu {
+    .menu-bar {
+        display: flex;
+        flex-direction: row;
+
+        .menu-icon {
+            width: 32px;
+        }
+
+        .view-title {
+            font-size: 26px;
+            text-align: center;
+            flex: auto;
+        }
+    }
+
+    .menu-contents {
+        position: absolute;
+        background-color: white;
+        width: 100%;
+
+        .menu-item {
+            cursor: pointer;
+            height: 50px;
+            border: 1px solid lightgray;
+            padding: 3px;
+            vertical-align: middle;
+
+            .character-name {
+                font-weight: bold;
+                font-size: 18px;
+            }
+
+            .character-description {
+                font-size: 14px;
+            }
+
+            .option {
+                line-height: 50px;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
 .hero-points-container {
     .hero-points-row {
         display: flex;
@@ -41,8 +99,6 @@ h2 {
             height: 15px;
         }
     }
-
-    .hero-points-display {}
 }
 
 .deck-container {

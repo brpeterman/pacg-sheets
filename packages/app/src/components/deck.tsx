@@ -9,10 +9,7 @@ export interface DeckProps {
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
   readonly collapsed: boolean;
-  readonly deckUpgradeHandler: (
-    u: string,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  readonly deckUpgradeHandler: (u: string) => void;
   readonly toggleCollapseHandler: (s: string) => void;
 }
 
@@ -73,7 +70,7 @@ export class Deck extends React.Component<DeckProps> {
                         <UpgradeBox
                           heroPoints={this.props.heroPoints}
                           onChange={(e) =>
-                            this.props.deckUpgradeHandler(upgradeEntry.id, e)
+                            this.props.deckUpgradeHandler(upgradeEntry.id)
                           }
                           purchased={purchased}
                         />

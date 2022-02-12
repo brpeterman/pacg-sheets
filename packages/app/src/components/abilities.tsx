@@ -8,10 +8,7 @@ export interface AbilitiesProps {
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
   readonly collapsed: boolean;
-  readonly abilityUpgradeHandler: (
-    u: string,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  readonly abilityUpgradeHandler: (u: string) => void;
   readonly toggleCollapseHandler: (s: string) => void;
 }
 
@@ -87,7 +84,7 @@ export class Abilities extends React.Component<AbilitiesProps> {
                         <UpgradeBox
                           heroPoints={this.props.heroPoints}
                           onChange={(e) =>
-                            this.props.abilityUpgradeHandler(upgradeEntry.id, e)
+                            this.props.abilityUpgradeHandler(upgradeEntry.id)
                           }
                           purchased={purchased}
                         />

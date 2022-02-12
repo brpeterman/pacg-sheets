@@ -6,7 +6,7 @@ import {
   Die,
   ProficiencyType,
   Role,
-} from ".";
+} from "./character";
 
 const Compatriot: Role = {
   name: "Compatriot",
@@ -16,32 +16,28 @@ const Compatriot: Role = {
       modifier: 1,
     },
   },
-  classPowerOverrides: [
-    {
-      powerId: "power-1",
+  classPowerOverrides: {
+    "power-1": {
       description: `On a local combat ({diplomacy}or your Diplomacy) check,
       you may reload or recharge a weapon or an armor ({ally}or an ally) to add 1d4 ({1d6}1d6) ({1d8}1d8).`,
     },
-    {
-      powerId: "power-2",
+    "power-2": {
       description: `At the end of your turn, you may recharge
       a weapon or an armor ({ally}or an ally) from your hand or discards.`,
     },
-  ],
-  rolePowers: [
-    {
-      powerId: "role-power-1",
+  },
+  rolePowers: {
+    "role-power-1": {
       description: `{unlock}When you would recharge or discard a Shield armor for its power, you 
       may reveal it instead. ({reduction}When a local character suffers damage, you 
       may recharge a Shield armor to reduce it by 2.)`,
     },
-    {
-      powerId: "role-power-2",
+    "role-power-2": {
       description: `{unlock}When another local character would acquire an ally, you may acquire it 
       instead. ({draw}When a local character fails to acquire an ally, you may bury a 
       card to draw it.)`,
     },
-  ],
+  },
   rolePowerUpgrades: [
     {
       upgradeId: "ally",
@@ -83,36 +79,31 @@ const DrunkenAvenger: Role = {
       modifier: 1,
     },
   },
-  classPowerOverrides: [
-    {
-      powerId: "power-1",
+  classPowerOverrides: {
+    "power-1": {
       description: `On a local combat ({diplomacy}or your Diplomacy) ({strength} or your Strength or Constitution) check,
       you may reload or recharge a weapon or an armor ({liquid}or a Liquid boon) to add 1d4 ({1d6}1d6).`,
     },
-    {
-      powerId: "power-2",
+    "power-2": {
       description: `At the end of your turn, you may recharge
       a weapon or an armor ({liquid}or a Liquid boon) from your hand or discards.`,
     },
-    {
-      powerId: "power-3",
+    "power-3": {
       description: `You may avenge by discarding ({recharge}or recharging) ({reveal}or revealing) a card. 
       ({reduction}You may do the same to reduce damage you suffer during that encounter 
       by 3.)`,
     },
-  ],
-  rolePowers: [
-    {
-      powerId: "role-power-1",
+  },
+  rolePowers: {
+    "role-power-1": {
       description: `{unlock}When you move during your move step, you may move to a random other 
       location; if you do, heal a card, then draw a card.`,
     },
-    {
-      powerId: "role-power-2",
+    "role-power-2": {
       description: `{unlock}You are proficient with Liquids. On your checks to acquire or recharge 
       Liquid boons, add 1d12.`,
     },
-  ],
+  },
   rolePowerUpgrades: [
     {
       upgradeId: "strength",
@@ -205,22 +196,19 @@ export const Valeros: Character = {
 
   proficiencies: [ProficiencyType.Armor, ProficiencyType.Weapon],
 
-  powers: [
-    {
-      powerId: "power-1",
+  powers: {
+    "power-1": {
       description: `On a local combat ({diplomacy}or your Diplomacy) check,
         you may reload or recharge a weapon or an armor to add 1d4 ({1d6}1d6).`,
     },
-    {
-      powerId: "power-2",
+    "power-2": {
       description: `At the end of your turn, you may recharge
         a weapon or an armor from your hand or discards.`,
     },
-    {
-      powerId: "power-3",
+    "power-3": {
       description: `You may avenge by discarding ({recharge}or recharging) a card.`,
     },
-  ],
+  },
 
   deckUpgrades: {
     "weapon-1": {

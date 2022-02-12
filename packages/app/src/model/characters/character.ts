@@ -7,7 +7,7 @@ export interface Character {
   readonly abilities: Ability[];
   readonly handSize: number;
   readonly proficiencies: ProficiencyType[];
-  readonly powers: Power[];
+  readonly powers: { [key: string]: Power };
   readonly deck: { [key in CardType]: number };
   readonly deckUpgrades: { [key: string]: DeckUpgrade };
   readonly abilityUpgrades: { [key: string]: AbilityUpgrade };
@@ -75,7 +75,6 @@ export enum ProficiencyType {
 }
 
 export interface Power {
-  readonly powerId: string;
   readonly description: string;
 }
 
@@ -106,7 +105,7 @@ export interface Role {
   readonly name: string;
   readonly description: string;
   readonly handUpgrades: { [key: string]: HandUpgrade };
-  readonly classPowerOverrides: Power[];
-  readonly rolePowers: Power[];
+  readonly classPowerOverrides: { [key: string]: Power };
+  readonly rolePowers: { [key: string]: Power };
   readonly rolePowerUpgrades: PowerUpgrade[];
 }
