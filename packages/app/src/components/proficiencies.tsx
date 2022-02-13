@@ -41,6 +41,7 @@ export class Proficiencies extends React.Component<ProficienciesProps> {
                   key={upgrade.proficiencyType}
                 >
                   <UpgradeBox
+                    upgradeId={upgradeId}
                     heroPoints={this.props.heroPoints}
                     onChange={(e) =>
                       this.props.proficiencyUpgradeHandler(upgradeId)

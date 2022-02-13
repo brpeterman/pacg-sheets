@@ -68,15 +68,14 @@ export class Deck extends React.Component<DeckProps> {
                     return (
                       <div className="deck-upgrade" key={upgradeEntry.id}>
                         <UpgradeBox
+                          upgradeId={upgradeEntry.id}
                           heroPoints={this.props.heroPoints}
+                          label={`+${upgradeEntry.upgrade.modifier}`}
                           onChange={(e) =>
                             this.props.deckUpgradeHandler(upgradeEntry.id)
                           }
                           purchased={purchased}
                         />
-                        <span className="plus-one">
-                          +{upgradeEntry.upgrade.modifier}
-                        </span>
                       </div>
                     );
                   })}

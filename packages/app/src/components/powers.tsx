@@ -47,6 +47,7 @@ export class Powers extends React.Component<PowersProps> {
       );
       segments.push(
         <UpgradeBox
+          upgradeId={`${powerId}|${upgradeId}`}
           heroPoints={this.props.heroPoints}
           onChange={(e) => this.props.powerUpgradeHandler(upgradeId, powerId)}
           purchased={purchased}

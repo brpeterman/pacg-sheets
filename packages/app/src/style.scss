@@ -36,10 +36,6 @@ h2 {
     backdrop-filter: blur(10px); // Firefox doesn't support this :(
 }
 
-.plus-one {
-    font-size: smaller;
-}
-
 .menu {
     .menu-bar {
         display: flex;
@@ -224,5 +220,32 @@ h2 {
         .proficiencies-item {
             min-width: 100px;
         }
+    }
+}
+
+.upgrade-checkbox {
+    display: inline-block;
+    min-width: 22px;
+    height: 22px;
+    text-align: center;
+    color: black;
+    padding: 0 2px 2px 2px;
+
+    label {
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        display: block;
+        font-size: 12px;
+        line-height: 22px;
+    }
+
+    input:checked ~ label {
+        border: 1px solid black;
+        background-color: rgb(32, 32, 32);
+        color: white;
+    }
+
+    input {
+        display: none;
     }
 }

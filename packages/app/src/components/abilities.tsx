@@ -82,15 +82,14 @@ export class Abilities extends React.Component<AbilitiesProps> {
                     return (
                       <div className="ability-upgrade" key={upgradeEntry.id}>
                         <UpgradeBox
+                          upgradeId={upgradeEntry.id}
                           heroPoints={this.props.heroPoints}
+                          label={`+${upgradeEntry.upgrade.modifier}`}
                           onChange={(e) =>
                             this.props.abilityUpgradeHandler(upgradeEntry.id)
                           }
                           purchased={purchased}
                         />
-                        <span className="plus-one">
-                          +{upgradeEntry.upgrade.modifier}
-                        </span>
                       </div>
                     );
                   })}

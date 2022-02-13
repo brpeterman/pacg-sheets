@@ -38,11 +38,12 @@ export class HandSize extends React.Component<HandSizeProps> {
               return (
                 <div className="hand-size-item" key={upgradeId}>
                   <UpgradeBox
+                    upgradeId={upgradeId}
                     heroPoints={this.props.heroPoints}
+                    label={`+${upgrade.modifier}`}
                     onChange={(e) => this.props.handUpgradeHandler(upgradeId)}
                     purchased={purchased}
                   />
-                  <span className="plus-one">+{upgrade.modifier}</span>
                 </div>
               );
             })}
