@@ -25,17 +25,14 @@ export class Roles extends React.Component<RolesProps> {
           <h2>Role</h2>
         </div>
         <div className="roles-container">
-          <select onChange={(e) => this.selectRole(e.currentTarget.value)}>
-            <option value={undefined} selected={!this.props.selectedRole}>
-              None
-            </option>
+          <select
+            value={this.props.selectedRole}
+            onChange={(e) => this.selectRole(e.currentTarget.value)}
+          >
+            <option value={undefined}>None</option>
             {this.props.roles.map((role) => {
               return (
-                <option
-                  value={role.name}
-                  selected={role.name === this.props.selectedRole}
-                  key={role.name}
-                >
+                <option value={role.name} key={role.name}>
                   {role.name}
                 </option>
               );

@@ -3,7 +3,7 @@ export interface Character {
   readonly class: string;
   readonly race: string;
   readonly description: string;
-  readonly favoredCards: CardType[];
+  readonly favoredCards: string[];
   readonly abilities: Ability[];
   readonly handSize: number;
   readonly proficiencies: ProficiencyType[];

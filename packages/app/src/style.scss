@@ -36,6 +36,10 @@ h2 {
     backdrop-filter: blur(10px); // Firefox doesn't support this :(
 }
 
+.plus-one {
+    font-size: smaller;
+}
+
 .menu {
     .menu-bar {
         display: flex;
@@ -86,6 +90,9 @@ h2 {
         display: flex;
         flex-direction: row;
         text-align: center;
+        font-size: 24px;
+        line-height: 24px;
+        height: 28px;
         
         &.hidden {
             display: none;
@@ -95,8 +102,9 @@ h2 {
             font-weight: bold;
             cursor: pointer;
             user-select: none;
-            width: 15px;
-            height: 15px;
+            width: 30px;
+            height: 24px;
+            font-size: 30px;
         }
     }
 }
@@ -112,11 +120,11 @@ h2 {
 
         div {
             flex: auto;
-
-            &.favored-cards {
-                text-align: right;
-            }
         }
+    }
+
+    .favored-cards {
+        font-weight: bold;
     }
 
     .deck-row {

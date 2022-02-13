@@ -4,7 +4,7 @@ import { CardType, DeckUpgrade } from "../model/characters";
 
 export interface DeckProps {
   readonly baseDeck: { [key in CardType]: number };
-  readonly favoredCards: CardType[];
+  readonly favoredCards: string[];
   readonly availableUpgrades: { [key: string]: DeckUpgrade };
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
@@ -41,11 +41,11 @@ export class Deck extends React.Component<DeckProps> {
           onClick={() => this.props.toggleCollapseHandler("deck")}
         >
           <h2>Deck List</h2>
+        </div>
+        <div className={this.props.collapsed ? "hidden" : ""}>
           <div className="favored-cards">
             Favored cards: {this.props.favoredCards.join(", ")}
           </div>
-        </div>
-        <div className={this.props.collapsed ? "hidden" : ""}>
           {cardTypes.map((cardType) => {
             const total = this.getCardTypeLimit(cardType);
             const availableUpgrades = Object.keys(this.props.availableUpgrades)
@@ -74,7 +74,9 @@ export class Deck extends React.Component<DeckProps> {
                           }
                           purchased={purchased}
                         />
-                        +{upgradeEntry.upgrade.modifier}
+                        <span className="plus-one">
+                          +{upgradeEntry.upgrade.modifier}
+                        </span>
                       </div>
                     );
                   })}

@@ -42,7 +42,7 @@ export class HandSize extends React.Component<HandSizeProps> {
                     onChange={(e) => this.props.handUpgradeHandler(upgradeId)}
                     purchased={purchased}
                   />
-                  +{upgrade.modifier}
+                  <span className="plus-one">+{upgrade.modifier}</span>
                 </div>
               );
             })}

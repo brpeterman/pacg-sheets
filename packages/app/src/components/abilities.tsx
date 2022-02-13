@@ -88,7 +88,9 @@ export class Abilities extends React.Component<AbilitiesProps> {
                           }
                           purchased={purchased}
                         />
-                        +{upgradeEntry.upgrade.modifier}
+                        <span className="plus-one">
+                          +{upgradeEntry.upgrade.modifier}
+                        </span>
                       </div>
                     );
                   })}

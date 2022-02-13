@@ -14,7 +14,7 @@ export interface PowersProps {
 
 export class Powers extends React.Component<PowersProps> {
   powerToSegments(powerId: string, power: Power): JSX.Element[] {
-    const matches = power.description.match(/\{\w+?\}/g);
+    const matches = power.description.match(/\{[\w-]+?\}/g);
     if (!matches) {
       return [<span>{power.description}</span>];
     }
