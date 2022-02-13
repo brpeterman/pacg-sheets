@@ -33,14 +33,6 @@ export class CharacterSheet {
     this.collapsedSections = collapsedSections || [];
   }
 
-  getAbilityModifier(abilityType: AbilityType): number {
-    return Object.keys(this.character.abilityUpgrades)
-      .filter((abilityId) => this.abilityUpgrades.includes(abilityId))
-      .map((abilityId) => this.character.abilityUpgrades[abilityId]!)
-      .filter((abilityUpgrade) => abilityUpgrade.ablilityType === abilityType)
-      .reduce((sum, current) => sum + current.modifier, 0);
-  }
-
   toggleDeckUpgrade(upgrade: string) {
     if (this.deckUpgrades.includes(upgrade)) {
       const index = this.deckUpgrades.indexOf(upgrade);

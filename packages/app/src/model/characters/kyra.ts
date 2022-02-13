@@ -25,11 +25,13 @@ const Dawnseeker: Role = {
     "power-1": {
       description: `On a local check against an Outsider or Undead bane ({boon}or against a Divine 
         or Healing boon), add 1d4 ({d6}1d6) and the Magic trait. `,
+      upgrades: ["boon", "d6"],
     },
     "power-2": {
       description: `At the ({turn-start}start or) end of your turn, you may recharge a Divine card to 
       ({cure-scourge}remove a scourge from a local character or) heal a local character a card 
       ({extra-healing}or 1d4 cards).`,
+      upgrades: ["turn-start", "cure-scourge", "extra-healing"],
     },
   },
 
@@ -37,42 +39,13 @@ const Dawnseeker: Role = {
     "role-power-1": {
       description: `{unlock}On your check to recharge a Divine non-Attack spell, you automatically 
       succeed. ({shuffle}Then you may shuffle your deck.) `,
+      upgrades: ["unlock", "shuffle"],
     },
     "role-power-2": {
       description: `{unlock}When a local character would suffer a scourge, you may suffer it instead.`,
+      upgrades: ["unlock"],
     },
   },
-
-  rolePowerUpgrades: [
-    {
-      powerId: "power-1",
-      upgradeId: "boon",
-    },
-    {
-      powerId: "power-2",
-      upgradeId: "turn-start",
-    },
-    {
-      powerId: "power-2",
-      upgradeId: "cure-scourge",
-    },
-    {
-      powerId: "power-2",
-      upgradeId: "extra-healing",
-    },
-    {
-      powerId: "role-power-1",
-      upgradeId: "unlock",
-    },
-    {
-      powerId: "role-power-1",
-      upgradeId: "shuffle",
-    },
-    {
-      powerId: "role-power-2",
-      upgradeId: "unlock",
-    },
-  ],
 };
 
 const Smiter: Role = {
@@ -92,10 +65,12 @@ const Smiter: Role = {
     "power-1": {
       description: `On a local check against an Outsider or Undead ({summoned}or summoned) bane, add 
       1d4 ({d6}1d6) ({d8}1d8) and the Magic trait.`,
+      upgrades: ["summoned", "d6", "d8"],
     },
     "power-2": {
       description: `At the end of your turn, you may recharge a Divine card to heal a local 
       character a card ({heal-2}or 2 cards)`,
+      upgrades: ["heal-2"],
     },
   },
 
@@ -103,47 +78,19 @@ const Smiter: Role = {
     "role-power-1": {
       description: `{unlock}After you play a weapon or an Attack spell, you may examine the top card 
       of your deck. If it is a weapon or an Attack spell, you may draw it.`,
+      upgrades: ["unlock"],
     },
     "role-power-2": {
       description: `{unlock}On your check to recharge a Divine Attack spell, you automatically 
       succeed. ({shuffle}Then you may shuffle your deck.)`,
+      upgrades: ["unlock", "shuffle"],
     },
     "role-power-3": {
       description: `{unlock}You may avenge by discarding a blessing; during the encounter, your 
       checks are blessed by the deity Sarenrae.`,
+      upgrades: ["unlock"],
     },
   },
-
-  rolePowerUpgrades: [
-    {
-      powerId: "power-1",
-      upgradeId: "summoned",
-    },
-    {
-      powerId: "power-1",
-      upgradeId: "d8",
-    },
-    {
-      powerId: "power-2",
-      upgradeId: "heal-2",
-    },
-    {
-      powerId: "role-power-1",
-      upgradeId: "unlock",
-    },
-    {
-      powerId: "role-power-2",
-      upgradeId: "unlock",
-    },
-    {
-      powerId: "role-power-2",
-      upgradeId: "shuffle",
-    },
-    {
-      powerId: "role-power-3",
-      upgradeId: "unlock",
-    },
-  ],
 };
 
 export const Kyra: Character = {
@@ -161,15 +108,73 @@ export const Kyra: Character = {
 
   roles: [Dawnseeker, Smiter],
 
-  handSize: 5,
+  hand: {
+    count: 5,
+    upgrades: {
+      "class-hand": {
+        modifier: 1,
+      },
+    },
+  },
 
   deck: {
-    [CardType.Weapon]: 2,
-    [CardType.Spell]: 4,
-    [CardType.Armor]: 1,
-    [CardType.Item]: 2,
-    [CardType.Ally]: 1,
-    [CardType.Blessing]: 5,
+    [CardType.Weapon]: {
+      count: 2,
+      upgrades: {
+        "weapon-1": {
+          modifier: 1,
+        },
+        "weapon-2": {
+          modifier: 1,
+        },
+      },
+    },
+    [CardType.Spell]: {
+      count: 4,
+      upgrades: {
+        "spell-1": {
+          modifier: 1,
+        },
+        "spell-2": {
+          modifier: 1,
+        },
+      },
+    },
+    [CardType.Armor]: {
+      count: 1,
+      upgrades: {
+        "armor-1": {
+          modifier: 1,
+        },
+      },
+    },
+    [CardType.Item]: {
+      count: 2,
+      upgrades: {
+        "item-1": {
+          modifier: 1,
+        },
+      },
+    },
+    [CardType.Ally]: {
+      count: 1,
+      upgrades: {
+        "ally-1": {
+          modifier: 1,
+        },
+      },
+    },
+    [CardType.Blessing]: {
+      count: 5,
+      upgrades: {
+        "blessing-1": {
+          modifier: 1,
+        },
+        "blessing-2": {
+          modifier: 1,
+        },
+      },
+    },
   },
 
   abilities: [
@@ -179,27 +184,73 @@ export const Kyra: Character = {
       proficiencies: {
         [SkillType.Melee]: 2,
       },
+      upgrades: {
+        "str-1": {
+          modifier: 1,
+        },
+        "str-2": {
+          modifier: 1,
+        },
+        "str-3": {
+          modifier: 1,
+        },
+      },
     },
     {
       abilityType: AbilityType.Dexterity,
       die: Die.D4,
       proficiencies: {},
+      upgrades: {
+        "dex-1": {
+          modifier: 1,
+        },
+      },
     },
     {
       abilityType: AbilityType.Constitution,
       die: Die.D6,
       proficiencies: {},
+      upgrades: {
+        "con-1": {
+          modifier: 1,
+        },
+        "con-2": {
+          modifier: 1,
+        },
+      },
     },
     {
       abilityType: AbilityType.Intelligence,
       die: Die.D6,
       proficiencies: {},
+      upgrades: {
+        "int-1": {
+          modifier: 1,
+        },
+        "int-2": {
+          modifier: 1,
+        },
+      },
     },
     {
       abilityType: AbilityType.Wisdom,
       die: Die.D10,
       proficiencies: {
         [SkillType.Divine]: 3,
+      },
+      upgrades: {
+        "wis-1": {
+          modifier: 1,
+        },
+        "wis-2": {
+          modifier: 1,
+        },
+        "wis-3": {
+          modifier: 1,
+        },
+        "wis-4": {
+          modifier: 1,
+        },
       },
     },
     {
@@ -208,15 +259,34 @@ export const Kyra: Character = {
       proficiencies: {
         [SkillType.Diplomacy]: 1,
       },
+      upgrades: {
+        "cha-1": {
+          modifier: 1,
+        },
+        "cha-2": {
+          modifier: 1,
+        },
+        "cha-3": {
+          modifier: 1,
+        },
+      },
     },
   ],
 
-  proficiencies: [ProficiencyType.Armor, ProficiencyType.Divine],
+  proficiencies: {
+    proficiencies: [ProficiencyType.Armor, ProficiencyType.Divine],
+    upgrades: {
+      [ProficiencyType.Weapon]: {
+        proficiencyType: ProficiencyType.Weapon,
+      },
+    },
+  },
 
   powers: {
     "power-1": {
       description: `On a local check against an Outsider or Undead 
       bane, add 1d4 ({d6}1d6) and the Magic trait.`,
+      upgrades: ["d6"],
     },
     "power-2": {
       description: `At the end of your turn, you may recharge a 
@@ -225,131 +295,7 @@ export const Kyra: Character = {
     "power-3": {
       description: `{unlock}Gain the skills Fortitude: Constitution +2 and 
       Perception: Wisdom +2`,
+      upgrades: ["unlock"],
     },
   },
-
-  deckUpgrades: {
-    "weapon-1": {
-      cardType: CardType.Weapon,
-      modifier: 1,
-    },
-    "weapon-2": {
-      cardType: CardType.Weapon,
-      modifier: 1,
-    },
-    "spell-1": {
-      cardType: CardType.Spell,
-      modifier: 1,
-    },
-    "spell-2": {
-      cardType: CardType.Spell,
-      modifier: 1,
-    },
-    "armor-1": {
-      cardType: CardType.Armor,
-      modifier: 1,
-    },
-    "item-1": {
-      cardType: CardType.Item,
-      modifier: 1,
-    },
-    "ally-1": {
-      cardType: CardType.Ally,
-      modifier: 1,
-    },
-    "blessing-1": {
-      cardType: CardType.Blessing,
-      modifier: 1,
-    },
-    "blessing-2": {
-      cardType: CardType.Blessing,
-      modifier: 1,
-    },
-  },
-
-  abilityUpgrades: {
-    "str-1": {
-      ablilityType: AbilityType.Strength,
-      modifier: 1,
-    },
-    "str-2": {
-      ablilityType: AbilityType.Strength,
-      modifier: 1,
-    },
-    "str-3": {
-      ablilityType: AbilityType.Strength,
-      modifier: 1,
-    },
-    "dex-1": {
-      ablilityType: AbilityType.Dexterity,
-      modifier: 1,
-    },
-    "con-1": {
-      ablilityType: AbilityType.Constitution,
-      modifier: 1,
-    },
-    "con-2": {
-      ablilityType: AbilityType.Constitution,
-      modifier: 1,
-    },
-    "int-1": {
-      ablilityType: AbilityType.Intelligence,
-      modifier: 1,
-    },
-    "int-2": {
-      ablilityType: AbilityType.Intelligence,
-      modifier: 1,
-    },
-    "wis-1": {
-      ablilityType: AbilityType.Wisdom,
-      modifier: 1,
-    },
-    "wis-2": {
-      ablilityType: AbilityType.Wisdom,
-      modifier: 1,
-    },
-    "wis-3": {
-      ablilityType: AbilityType.Wisdom,
-      modifier: 1,
-    },
-    "wis-4": {
-      ablilityType: AbilityType.Wisdom,
-      modifier: 1,
-    },
-    "cha-1": {
-      ablilityType: AbilityType.Charisma,
-      modifier: 1,
-    },
-    "cha-2": {
-      ablilityType: AbilityType.Charisma,
-      modifier: 1,
-    },
-    "cha-3": {
-      ablilityType: AbilityType.Charisma,
-      modifier: 1,
-    },
-  },
-
-  handUpgrades: {
-    "class-hand": {
-      modifier: 1,
-    },
-  },
-
-  proficiencyUpgrades: {
-    weapon: {
-      proficiencyType: ProficiencyType.Weapon,
-    },
-  },
-
-  powerUpgrades: [
-    {
-      powerId: "power-1",
-      upgradeId: "d6",
-    },
-    {
-      powerId: "power-3",
-      upgradeId: "unlock",
-    },
-  ],
 };

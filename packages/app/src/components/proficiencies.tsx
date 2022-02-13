@@ -1,11 +1,10 @@
 import React from "react";
 import { UpgradeBox } from ".";
-import { ProficiencyType, ProficiencyUpgrade } from "../model/characters";
+import { Proficiencies as CharProficiencies } from "../model/characters";
 import { SectionHeader } from "./section-header";
 
 export interface ProficienciesProps {
-  readonly baseProficiencies: ProficiencyType[];
-  readonly availableUpgrades: { [key: string]: ProficiencyUpgrade };
+  readonly proficiencies: CharProficiencies;
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
   readonly collapsed: boolean;
@@ -27,15 +26,15 @@ export class Proficiencies extends React.Component<ProficienciesProps> {
           className={"collapsible" + (this.props.collapsed ? " hidden" : "")}
         >
           <div className="proficiencies-row">
-            {this.props.baseProficiencies.map((proficiency) => {
+            {this.props.proficiencies.proficiencies.map((proficiency) => {
               return (
                 <div className="proficiencies-item" key={proficiency}>
                   {proficiency}
                 </div>
               );
             })}
-            {Object.keys(this.props.availableUpgrades).map((upgradeId) => {
-              const upgrade = this.props.availableUpgrades[upgradeId]!;
+            {Object.keys(this.props.proficiencies.upgrades).map((upgradeId) => {
+              const upgrade = this.props.proficiencies.upgrades[upgradeId]!;
               const purchased =
                 !!this.props.purchasedUpgrades.includes(upgradeId);
               return (

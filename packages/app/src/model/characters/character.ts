@@ -5,22 +5,23 @@ export interface Character {
   readonly description: string;
   readonly favoredCards: string[];
   readonly abilities: Ability[];
-  readonly handSize: number;
-  readonly proficiencies: ProficiencyType[];
+  readonly hand: Hand;
+  readonly proficiencies: Proficiencies;
   readonly powers: { [key: string]: Power };
-  readonly deck: { [key in CardType]: number };
-  readonly deckUpgrades: { [key: string]: DeckUpgrade };
-  readonly abilityUpgrades: { [key: string]: AbilityUpgrade };
-  readonly handUpgrades: { [key: string]: HandUpgrade };
-  readonly proficiencyUpgrades: { [key: string]: ProficiencyUpgrade };
-  readonly powerUpgrades: PowerUpgrade[];
+  readonly deck: { [key in CardType]: DeckCards };
   readonly roles: Role[];
+}
+
+export interface Hand {
+  readonly count: number;
+  readonly upgrades: { [key: string]: ModifierUpgrade };
 }
 
 export interface Ability {
   readonly abilityType: AbilityType;
   readonly die: Die;
   readonly proficiencies: { [key in SkillType]?: number };
+  readonly upgrades: { [key: string]: ModifierUpgrade };
 }
 
 export enum AbilityType {
@@ -76,20 +77,21 @@ export enum ProficiencyType {
 
 export interface Power {
   readonly description: string;
+  readonly upgrades?: string[];
 }
 
-export interface DeckUpgrade {
-  readonly cardType: CardType;
+export interface DeckCards {
+  readonly count: number;
+  readonly upgrades: { [key: string]: ModifierUpgrade };
+}
+
+export interface ModifierUpgrade {
   readonly modifier: number;
 }
 
-export interface AbilityUpgrade {
-  readonly ablilityType: AbilityType;
-  readonly modifier: number;
-}
-
-export interface HandUpgrade {
-  readonly modifier: number;
+export interface Proficiencies {
+  readonly proficiencies: ProficiencyType[];
+  readonly upgrades: { [key: string]: ProficiencyUpgrade };
 }
 
 export interface ProficiencyUpgrade {
@@ -104,8 +106,7 @@ export interface PowerUpgrade {
 export interface Role {
   readonly name: string;
   readonly description: string;
-  readonly handUpgrades: { [key: string]: HandUpgrade };
+  readonly handUpgrades: { [key: string]: ModifierUpgrade };
   readonly classPowerOverrides: { [key: string]: Power };
   readonly rolePowers: { [key: string]: Power };
-  readonly rolePowerUpgrades: PowerUpgrade[];
 }

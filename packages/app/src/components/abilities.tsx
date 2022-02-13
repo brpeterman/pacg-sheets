@@ -1,11 +1,10 @@
 import React from "react";
 import { UpgradeBox } from ".";
-import { Ability, AbilityUpgrade, SkillType } from "../model/characters";
+import { Ability, SkillType } from "../model/characters";
 import { SectionHeader } from "./section-header";
 
 export interface AbilitiesProps {
   readonly baseAbilities: Ability[];
-  readonly availableUpgrades: { [key: string]: AbilityUpgrade };
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
   readonly collapsed: boolean;
@@ -27,21 +26,12 @@ export class Abilities extends React.Component<AbilitiesProps> {
           className={"collapsible" + (this.props.collapsed ? " hidden" : "")}
         >
           {this.props.baseAbilities.map((ability) => {
-            const availableUpgrades = Object.keys(this.props.availableUpgrades)
-              .map((abilityId) => {
-                return {
-                  id: abilityId,
-                  upgrade: this.props.availableUpgrades[abilityId]!,
-                };
-              })
-              .filter(
-                (entry) => entry.upgrade.ablilityType === ability.abilityType
-              );
-            const upgradesModifier = availableUpgrades
-              .filter((upgrade) =>
-                this.props.purchasedUpgrades.includes(upgrade.id)
+            const upgradesModifier = Object.keys(ability.upgrades)
+              .filter((upgradeId) =>
+                this.props.purchasedUpgrades.includes(upgradeId)
               )
-              .reduce((sum, current) => sum + current.upgrade.modifier, 0);
+              .map((upgradeId) => ability.upgrades[upgradeId])
+              .reduce((sum, current) => sum + current.modifier, 0);
             return (
               <div className="abilities-row" key={ability.abilityType}>
                 <div className="abilities-list">
@@ -78,18 +68,18 @@ export class Abilities extends React.Component<AbilitiesProps> {
                 </div>
                 <div className="ability-primary-die">{ability.die}</div>
                 <div className="ability-primary-upgrades">
-                  {availableUpgrades.map((upgradeEntry) => {
-                    const purchased = this.props.purchasedUpgrades.includes(
-                      upgradeEntry.id
-                    );
+                  {Object.keys(ability.upgrades).map((upgradeId) => {
+                    const purchased =
+                      this.props.purchasedUpgrades.includes(upgradeId);
+                    const upgrade = ability.upgrades[upgradeId];
                     return (
-                      <div className="ability-upgrade" key={upgradeEntry.id}>
+                      <div className="ability-upgrade" key={upgradeId}>
                         <UpgradeBox
-                          upgradeId={upgradeEntry.id}
+                          upgradeId={upgradeId}
                           heroPoints={this.props.heroPoints}
-                          label={`+${upgradeEntry.upgrade.modifier}`}
+                          label={`+${upgrade.modifier}`}
                           onChange={(e) =>
-                            this.props.abilityUpgradeHandler(upgradeEntry.id)
+                            this.props.abilityUpgradeHandler(upgradeId)
                           }
                           purchased={purchased}
                         />

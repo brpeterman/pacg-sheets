@@ -1,11 +1,11 @@
 import React from "react";
 import { UpgradeBox } from ".";
-import { HandUpgrade } from "../model/characters";
+import { Hand, ModifierUpgrade } from "../model/characters";
 import { SectionHeader } from "./section-header";
 
 export interface HandSizeProps {
-  readonly defaultSize: number;
-  readonly availableUpgrades: { [key: string]: HandUpgrade };
+  readonly hand: Hand;
+  readonly availableUpgrades: { [key: string]: ModifierUpgrade };
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
   readonly collapsed: boolean;
@@ -32,7 +32,7 @@ export class HandSize extends React.Component<HandSizeProps> {
         >
           <div className="hand-size-row">
             <div className="hand-size-item">
-              {this.props.defaultSize + handSizeModifier}
+              {this.props.hand.count + handSizeModifier}
             </div>
             {Object.keys(this.props.availableUpgrades).map((upgradeId) => {
               const upgrade = this.props.availableUpgrades[upgradeId]!;

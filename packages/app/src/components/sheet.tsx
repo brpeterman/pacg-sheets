@@ -71,7 +71,7 @@ export class Sheet extends React.Component<SheetProps> {
       (role) => role.name === this.props.activeSheet.role
     );
     const handUpgrades = {
-      ...this.props.activeSheet.character.handUpgrades,
+      ...this.props.activeSheet.character.hand.upgrades,
       ...(role?.handUpgrades || {}),
     };
     const powers = {
@@ -79,10 +79,6 @@ export class Sheet extends React.Component<SheetProps> {
       ...(role?.classPowerOverrides || {}),
       ...(role?.rolePowers || {}),
     };
-    const powerUpgrades = [
-      ...this.props.activeSheet.character.powerUpgrades,
-      ...(role?.rolePowerUpgrades || []),
-    ];
     return (
       <div>
         <HeroPoints
@@ -95,7 +91,6 @@ export class Sheet extends React.Component<SheetProps> {
         />
         <Deck
           baseDeck={this.props.activeSheet.character.deck}
-          availableUpgrades={this.props.activeSheet.character.deckUpgrades}
           purchasedUpgrades={this.props.activeSheet.deckUpgrades}
           favoredCards={this.props.activeSheet.character.favoredCards}
           heroPoints={this.props.activeSheet.heroPoints}
@@ -105,7 +100,6 @@ export class Sheet extends React.Component<SheetProps> {
         />
         <Abilities
           baseAbilities={this.props.activeSheet.character.abilities}
-          availableUpgrades={this.props.activeSheet.character.abilityUpgrades}
           purchasedUpgrades={this.props.activeSheet.abilityUpgrades}
           heroPoints={this.props.activeSheet.heroPoints}
           collapsed={this.props.activeSheet.collapsedSections.includes(
@@ -115,7 +109,7 @@ export class Sheet extends React.Component<SheetProps> {
           toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
         />
         <HandSize
-          defaultSize={this.props.activeSheet.character.handSize}
+          hand={this.props.activeSheet.character.hand}
           availableUpgrades={handUpgrades}
           purchasedUpgrades={this.props.activeSheet.handUpgrades}
           heroPoints={this.props.activeSheet.heroPoints}
@@ -126,10 +120,7 @@ export class Sheet extends React.Component<SheetProps> {
           toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
         />
         <Proficiencies
-          baseProficiencies={this.props.activeSheet.character.proficiencies}
-          availableUpgrades={
-            this.props.activeSheet.character.proficiencyUpgrades
-          }
+          proficiencies={this.props.activeSheet.character.proficiencies}
           purchasedUpgrades={this.props.activeSheet.proficiencyUpgrades}
           heroPoints={this.props.activeSheet.heroPoints}
           collapsed={this.props.activeSheet.collapsedSections.includes(
@@ -147,7 +138,6 @@ export class Sheet extends React.Component<SheetProps> {
         />
         <Powers
           powers={powers}
-          availableUpgrades={powerUpgrades}
           purchasedUpgrades={this.props.activeSheet.powerUpgrades}
           heroPoints={this.props.activeSheet.heroPoints}
           collapsed={this.props.activeSheet.collapsedSections.includes(

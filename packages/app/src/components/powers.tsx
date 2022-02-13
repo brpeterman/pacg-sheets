@@ -1,11 +1,10 @@
 import React from "react";
 import { UpgradeBox } from ".";
-import { Power, PowerUpgrade } from "../model/characters";
+import { Power } from "../model/characters";
 import { SectionHeader } from "./section-header";
 
 export interface PowersProps {
   readonly powers: { [key: string]: Power };
-  readonly availableUpgrades: PowerUpgrade[];
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
   readonly collapsed: boolean;
@@ -34,9 +33,8 @@ export class Powers extends React.Component<PowersProps> {
       lastIndex = placeholderStart + match.length;
       // Make an UpgradeBox for the placeholder
       const upgradeId = match.substring(1, match.length - 1);
-      const upgrade = (this.props.availableUpgrades.filter(
-        (upgrade) =>
-          upgrade.powerId === powerId && upgrade.upgradeId === upgradeId
+      const upgrade = (power.upgrades?.filter(
+        (powerUpgrade) => powerUpgrade === upgradeId
       ) || [])[0];
       if (!upgrade) {
         throw new Error(

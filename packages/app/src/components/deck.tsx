@@ -1,12 +1,11 @@
 import React from "react";
 import { UpgradeBox } from ".";
-import { CardType, DeckUpgrade } from "../model/characters";
+import { CardType, DeckCards } from "../model/characters";
 import { SectionHeader } from "./section-header";
 
 export interface DeckProps {
-  readonly baseDeck: { [key in CardType]: number };
+  readonly baseDeck: { [key in CardType]: DeckCards };
   readonly favoredCards: string[];
-  readonly availableUpgrades: { [key: string]: DeckUpgrade };
   readonly purchasedUpgrades: string[];
   readonly heroPoints: number;
   readonly collapsed: boolean;
@@ -16,14 +15,11 @@ export interface DeckProps {
 
 export class Deck extends React.Component<DeckProps> {
   getCardTypeLimit(cardType: CardType): number {
-    return Object.keys(this.props.availableUpgrades)
-      .filter((upgradeId) => this.props.purchasedUpgrades.includes(upgradeId))
-      .map((upgradeId) => this.props.availableUpgrades[upgradeId]!)
-      .filter((deckUpgrade) => deckUpgrade.cardType === cardType)
-      .reduce(
-        (sum, current) => sum + current.modifier,
-        this.props.baseDeck[cardType] || 0
-      );
+    const baseCount = this.props.baseDeck[cardType].count;
+    const upgrades = this.props.baseDeck[cardType].upgrades;
+    return Object.keys(upgrades)
+      .map((upgradeId) => upgrades[upgradeId])
+      .reduce((sum, upgrade) => sum + upgrade.modifier, baseCount);
   }
 
   render() {
@@ -51,31 +47,24 @@ export class Deck extends React.Component<DeckProps> {
           </div>
           {cardTypes.map((cardType) => {
             const total = this.getCardTypeLimit(cardType);
-            const availableUpgrades = Object.keys(this.props.availableUpgrades)
-              .map((upgradeId) => {
-                return {
-                  id: upgradeId,
-                  upgrade: this.props.availableUpgrades[upgradeId]!,
-                };
-              })
-              .filter((entry) => entry.upgrade.cardType === cardType);
+            const availableUpgrades = this.props.baseDeck[cardType].upgrades;
             return (
               <div className="deck-row" key={cardType}>
                 <div className="deck-card-type">{cardType.toString()}</div>
                 <div className="deck-card-type-limit">{total}</div>
                 <div className="deck-upgrades">
-                  {availableUpgrades.map((upgradeEntry) => {
-                    const purchased = this.props.purchasedUpgrades.includes(
-                      upgradeEntry.id
-                    );
+                  {Object.keys(availableUpgrades).map((upgradeId) => {
+                    const purchased =
+                      this.props.purchasedUpgrades.includes(upgradeId);
+                    const upgrade = availableUpgrades[upgradeId];
                     return (
-                      <div className="deck-upgrade" key={upgradeEntry.id}>
+                      <div className="deck-upgrade" key={upgradeId}>
                         <UpgradeBox
-                          upgradeId={upgradeEntry.id}
+                          upgradeId={upgradeId}
                           heroPoints={this.props.heroPoints}
-                          label={`+${upgradeEntry.upgrade.modifier}`}
+                          label={`+${upgrade.modifier}`}
                           onChange={(e) =>
-                            this.props.deckUpgradeHandler(upgradeEntry.id)
+                            this.props.deckUpgradeHandler(upgradeId)
                           }
                           purchased={purchased}
                         />
