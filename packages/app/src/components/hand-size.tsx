@@ -1,6 +1,7 @@
 import React from "react";
 import { UpgradeBox } from ".";
 import { HandUpgrade } from "../model/characters";
+import { SectionHeader } from "./section-header";
 
 export interface HandSizeProps {
   readonly defaultSize: number;
@@ -20,13 +21,15 @@ export class HandSize extends React.Component<HandSizeProps> {
       .reduce((sum, current) => sum + current.modifier, 0);
     return (
       <section className="hand-size-container">
+        <SectionHeader
+          heading="Hand Size"
+          id="handSize"
+          collapsed={this.props.collapsed}
+          toggleCollapseHandler={this.props.toggleCollapseHandler}
+        />
         <div
-          className="hand-size-header heading"
-          onClick={() => this.props.toggleCollapseHandler("handSize")}
+          className={"collapsible" + (this.props.collapsed ? " hidden" : "")}
         >
-          <h2>Hand Size</h2>
-        </div>
-        <div className={this.props.collapsed ? "hidden" : ""}>
           <div className="hand-size-row">
             <div className="hand-size-item">
               {this.props.defaultSize + handSizeModifier}

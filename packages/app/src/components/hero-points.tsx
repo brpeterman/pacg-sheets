@@ -1,4 +1,5 @@
 import React from "react";
+import { SectionHeader } from "./section-header";
 
 export interface HeroPointsProps {
   readonly points: number;
@@ -11,15 +12,16 @@ export class HeroPoints extends React.Component<HeroPointsProps> {
   render() {
     return (
       <section className="hero-points-container">
-        <div
-          className="heading"
-          onClick={() => this.props.toggleCollapseHandler("heroPoints")}
-        >
-          <h2>Hero points</h2>
-        </div>
+        <SectionHeader
+          heading="Hero Points"
+          id="heroPoints"
+          collapsed={this.props.collapsed}
+          toggleCollapseHandler={this.props.toggleCollapseHandler}
+        />
         <div
           className={
-            "hero-points-row " + (this.props.collapsed ? "hidden" : "")
+            "hero-points-row collapsible" +
+            (this.props.collapsed ? " hidden" : "")
           }
         >
           <div

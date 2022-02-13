@@ -1,6 +1,7 @@
 import React from "react";
 import { UpgradeBox } from ".";
 import { Ability, AbilityUpgrade, SkillType } from "../model/characters";
+import { SectionHeader } from "./section-header";
 
 export interface AbilitiesProps {
   readonly baseAbilities: Ability[];
@@ -16,13 +17,15 @@ export class Abilities extends React.Component<AbilitiesProps> {
   render() {
     return (
       <section className="abilities-container">
+        <SectionHeader
+          heading="Skills"
+          id="abilities"
+          collapsed={this.props.collapsed}
+          toggleCollapseHandler={this.props.toggleCollapseHandler}
+        />
         <div
-          className="abilities-header heading"
-          onClick={() => this.props.toggleCollapseHandler("abilities")}
+          className={"collapsible" + (this.props.collapsed ? " hidden" : "")}
         >
-          <h2>Skills</h2>
-        </div>
-        <div className={this.props.collapsed ? "hidden" : ""}>
           {this.props.baseAbilities.map((ability) => {
             const availableUpgrades = Object.keys(this.props.availableUpgrades)
               .map((abilityId) => {

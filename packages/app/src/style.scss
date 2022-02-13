@@ -9,14 +9,44 @@ body {
 }
 
 .heading {
+    display: flex;
+    flex-direction: row;
     font-size: 16px;
-    background-color: green;
+    // background: linear-gradient(#01579B, #00467c);
+    background-color: #01579B;
+    border-bottom: 4px solid #00467c;
     color: white;
     padding: 2px;
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
+    height: 33px;
+    width: 100%;
+    box-sizing: border-box;
+
+    h2 {
+        flex-grow: 1;
+    }
+
+    .expand-collapse-icon {
+        width: 35px;
+        text-align: center;
+        line-height: 20px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+}
+
+.collapsible {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+h1 {
+    font-size: inherit;
+    padding: inherit;
+    margin: inherit;
 }
 
 h2 {
@@ -38,17 +68,20 @@ h2 {
 
 .menu {
     .menu-bar {
+        height: 40px;
         display: flex;
         flex-direction: row;
 
         .menu-icon {
             width: 32px;
+            height: 32px;
         }
 
         .view-title {
             font-size: 26px;
+            line-height: 24px;
             text-align: center;
-            flex: auto;
+            flex-grow: 1;
         }
     }
 
@@ -230,6 +263,7 @@ h2 {
     text-align: center;
     color: black;
     padding: 0 2px 2px 2px;
+    
 
     label {
         border: 1px solid lightgray;

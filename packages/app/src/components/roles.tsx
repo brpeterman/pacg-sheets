@@ -1,5 +1,6 @@
 import React from "react";
 import { Role } from "../model/characters";
+import { SectionHeader } from "./section-header";
 
 export interface RolesProps {
   readonly roles: Role[];
@@ -18,13 +19,18 @@ export class Roles extends React.Component<RolesProps> {
   render() {
     return (
       <section className="roles">
+        <SectionHeader
+          heading="Role"
+          id="roles"
+          collapsed={this.props.collapsed}
+          toggleCollapseHandler={this.props.toggleCollapseHandler}
+        />
         <div
-          className="heading"
-          onClick={() => this.props.toggleCollapseHandler("roles")}
+          className={
+            "roles-container collapsible" +
+            (this.props.collapsed ? " hidden" : "")
+          }
         >
-          <h2>Role</h2>
-        </div>
-        <div className="roles-container">
           <select
             value={this.props.selectedRole}
             onChange={(e) => this.selectRole(e.currentTarget.value)}

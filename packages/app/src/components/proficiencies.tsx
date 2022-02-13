@@ -1,6 +1,7 @@
 import React from "react";
 import { UpgradeBox } from ".";
 import { ProficiencyType, ProficiencyUpgrade } from "../model/characters";
+import { SectionHeader } from "./section-header";
 
 export interface ProficienciesProps {
   readonly baseProficiencies: ProficiencyType[];
@@ -16,13 +17,15 @@ export class Proficiencies extends React.Component<ProficienciesProps> {
   render() {
     return (
       <section className="proficiencies-container">
+        <SectionHeader
+          heading="Proficiencies"
+          id="proficiencies"
+          collapsed={this.props.collapsed}
+          toggleCollapseHandler={this.props.toggleCollapseHandler}
+        />
         <div
-          className="proficiencies-header heading"
-          onClick={() => this.props.toggleCollapseHandler("proficiencies")}
+          className={"collapsible" + (this.props.collapsed ? " hidden" : "")}
         >
-          <h2>Proficiencies</h2>
-        </div>
-        <div className={this.props.collapsed ? "hidden" : ""}>
           <div className="proficiencies-row">
             {this.props.baseProficiencies.map((proficiency) => {
               return (

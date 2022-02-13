@@ -1,6 +1,7 @@
 import React from "react";
 import { UpgradeBox } from ".";
 import { CardType, DeckUpgrade } from "../model/characters";
+import { SectionHeader } from "./section-header";
 
 export interface DeckProps {
   readonly baseDeck: { [key in CardType]: number };
@@ -36,13 +37,15 @@ export class Deck extends React.Component<DeckProps> {
     ];
     return (
       <section className="deck-container">
+        <SectionHeader
+          heading="Deck List"
+          id="deck"
+          collapsed={this.props.collapsed}
+          toggleCollapseHandler={this.props.toggleCollapseHandler}
+        />
         <div
-          className="deck-header heading"
-          onClick={() => this.props.toggleCollapseHandler("deck")}
+          className={"collapsible" + (this.props.collapsed ? " hidden" : "")}
         >
-          <h2>Deck List</h2>
-        </div>
-        <div className={this.props.collapsed ? "hidden" : ""}>
           <div className="favored-cards">
             Favored cards: {this.props.favoredCards.join(", ")}
           </div>

@@ -65,9 +65,9 @@ export class Menu extends React.Component<MenuProps, MenuState> {
         <section className="menu">
           <div className="menu-bar heading" onClick={this.toggleMenu}>
             <img className="menu-icon" src={menuIcon} alt="Menu" />
-            <div className="view-title">
+            <h1 className="view-title">
               {activeSheet ? activeSheet.character.name : "PACG Sheets"}
-            </div>
+            </h1>
           </div>
           <div
             className={

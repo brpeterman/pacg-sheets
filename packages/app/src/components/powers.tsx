@@ -1,6 +1,7 @@
 import React from "react";
 import { UpgradeBox } from ".";
 import { Power, PowerUpgrade } from "../model/characters";
+import { SectionHeader } from "./section-header";
 
 export interface PowersProps {
   readonly powers: { [key: string]: Power };
@@ -67,13 +68,15 @@ export class Powers extends React.Component<PowersProps> {
   render() {
     return (
       <section className="powers-container">
+        <SectionHeader
+          heading="Powers"
+          id="powers"
+          collapsed={this.props.collapsed}
+          toggleCollapseHandler={this.props.toggleCollapseHandler}
+        />
         <div
-          className="powers-header heading"
-          onClick={() => this.props.toggleCollapseHandler("powers")}
+          className={"collapsible" + (this.props.collapsed ? " hidden" : "")}
         >
-          <h2>Powers</h2>
-        </div>
-        <div className={this.props.collapsed ? "hidden" : ""}>
           {Object.keys(this.props.powers).map((powerId) => {
             const power = this.props.powers[powerId];
             return (
