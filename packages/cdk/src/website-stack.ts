@@ -3,7 +3,11 @@ import {
   Certificate,
   CertificateValidation,
 } from "monocdk/lib/aws-certificatemanager";
-import { Distribution, PriceClass } from "monocdk/lib/aws-cloudfront";
+import {
+  Distribution,
+  PriceClass,
+  ViewerProtocolPolicy,
+} from "monocdk/lib/aws-cloudfront";
 import { S3Origin } from "monocdk/lib/aws-cloudfront-origins";
 import { HostedZone } from "monocdk/lib/aws-route53";
 import { Bucket } from "monocdk/lib/aws-s3";
@@ -43,6 +47,7 @@ export class AppStack extends Stack {
     const cloudfront = new Distribution(this, "Distribution", {
       defaultBehavior: {
         origin: new S3Origin(bucket),
+        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
       certificate: cert,
       domainNames: [props.domainName],
