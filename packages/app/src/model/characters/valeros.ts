@@ -247,7 +247,7 @@ export const Valeros: Character = {
     },
     {
       abilityType: AbilityType.Charisma,
-      die: Die.D10,
+      die: Die.D6,
       proficiencies: { [SkillType.Diplomacy]: 2 },
       upgrades: {
         "cha-1": {
