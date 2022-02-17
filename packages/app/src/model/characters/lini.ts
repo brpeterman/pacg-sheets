@@ -24,6 +24,8 @@ const WildWhisperer: Role = {
     },
   },
 
+  proficiencyUpgrades: {},
+
   classPowerOverrides: {
     "power-1": {
       description: `For your combat check, you may bury ({discard}or discard) a card or recharge an 
@@ -67,6 +69,8 @@ const WorldWalker: Role = {
       modifier: 1,
     },
   },
+
+  proficiencyUpgrades: {},
 
   classPowerOverrides: {
     "power-3": {

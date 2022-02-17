@@ -21,6 +21,8 @@ const Dawnseeker: Role = {
     },
   },
 
+  proficiencyUpgrades: {},
+
   classPowerOverrides: {
     "power-1": {
       description: `On a local check against an Outsider or Undead bane ({boon}or against a Divine 
@@ -60,6 +62,8 @@ const Smiter: Role = {
       modifier: 1,
     },
   },
+
+  proficiencyUpgrades: {},
 
   classPowerOverrides: {
     "power-1": {

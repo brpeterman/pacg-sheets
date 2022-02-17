@@ -16,6 +16,7 @@ const Compatriot: Role = {
       modifier: 1,
     },
   },
+  proficiencyUpgrades: {},
   classPowerOverrides: {
     "power-1": {
       description: `On a local combat ({diplomacy}or your Diplomacy) check,
@@ -53,6 +54,7 @@ const DrunkenAvenger: Role = {
       modifier: 1,
     },
   },
+  proficiencyUpgrades: {},
   classPowerOverrides: {
     "power-1": {
       description: `On a local combat ({diplomacy}or your Diplomacy) ({strength} or your Strength or Constitution) check,

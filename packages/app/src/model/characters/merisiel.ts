@@ -21,6 +21,8 @@ const Liberator: Role = {
     },
   },
 
+  proficiencyUpgrades: {},
+
   classPowerOverrides: {},
 
   rolePowers: {
@@ -57,6 +59,8 @@ const Waylayer: Role = {
       modifier: 1,
     },
   },
+
+  proficiencyUpgrades: {},
 
   classPowerOverrides: {
     "power-1": {

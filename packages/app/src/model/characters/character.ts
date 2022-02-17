@@ -107,6 +107,7 @@ export interface Role {
   readonly name: string;
   readonly description: string;
   readonly handUpgrades: { [key: string]: ModifierUpgrade };
+  readonly proficiencyUpgrades: { [key: string]: ProficiencyUpgrade };
   readonly classPowerOverrides: { [key: string]: Power };
   readonly rolePowers: { [key: string]: Power };
 }

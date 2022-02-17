@@ -18,6 +18,8 @@ const ResistanceFighter: Role = {
     },
   },
 
+  proficiencyUpgrades: {},
+
   classPowerOverrides: {
     "power-1": {
       description: `On your Strength check or your check against a monster, you may bury a card 
@@ -62,6 +64,8 @@ const Smashmouth: Role = {
       modifier: 1,
     },
   },
+
+  proficiencyUpgrades: {},
 
   classPowerOverrides: {
     "power-1": {

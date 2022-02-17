@@ -8,7 +8,7 @@ import {
   Proficiencies,
 } from ".";
 import { CharacterSheet } from "../model";
-import { Role } from "../model/characters";
+import { Role, Proficiencies as CharProficiencies } from "../model/characters";
 import { Roles } from "./roles";
 
 export interface SheetProps {
@@ -74,6 +74,14 @@ export class Sheet extends React.Component<SheetProps> {
       ...this.props.activeSheet.character.hand.upgrades,
       ...(role?.handUpgrades || {}),
     };
+    const proficiencies: CharProficiencies = {
+      proficiencies:
+        this.props.activeSheet.character.proficiencies.proficiencies,
+      upgrades: {
+        ...this.props.activeSheet.character.proficiencies.upgrades,
+        ...(role?.proficiencyUpgrades || {}),
+      },
+    };
     const powers = {
       ...this.props.activeSheet.character.powers,
       ...(role?.classPowerOverrides || {}),
@@ -120,7 +128,7 @@ export class Sheet extends React.Component<SheetProps> {
           toggleCollapseHandler={this.toggleCollapseHandler.bind(this)}
         />
         <Proficiencies
-          proficiencies={this.props.activeSheet.character.proficiencies}
+          proficiencies={proficiencies}
           purchasedUpgrades={this.props.activeSheet.proficiencyUpgrades}
           heroPoints={this.props.activeSheet.heroPoints}
           collapsed={this.props.activeSheet.collapsedSections.includes(
