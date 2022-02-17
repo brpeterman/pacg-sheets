@@ -1,4 +1,4 @@
-import { AbilityType, Character } from "./characters";
+import { Character } from "./characters";
 
 export class CharacterSheet {
   heroPoints: number = 0;
