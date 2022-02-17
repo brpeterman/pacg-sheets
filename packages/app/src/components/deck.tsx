@@ -18,7 +18,7 @@ export class Deck extends React.Component<DeckProps> {
     const baseCount = this.props.baseDeck[cardType].count;
     const upgrades = this.props.baseDeck[cardType].upgrades;
     return Object.keys(upgrades)
-      .filter(upgradeId => this.props.purchasedUpgrades.includes(upgradeId))
+      .filter((upgradeId) => this.props.purchasedUpgrades.includes(upgradeId))
       .map((upgradeId) => upgrades[upgradeId])
       .reduce((sum, upgrade) => sum + upgrade.modifier, baseCount);
   }
@@ -50,7 +50,7 @@ export class Deck extends React.Component<DeckProps> {
             const total = this.getCardTypeLimit(cardType);
             const availableUpgrades = this.props.baseDeck[cardType].upgrades;
             return (
-              <div className="deck-row" key={cardType}>
+              <div className={`deck-row deck-row-${cardType}`} key={cardType}>
                 <div className="deck-card-type">{cardType.toString()}</div>
                 <div className="deck-card-type-limit">{total}</div>
                 <div className="deck-upgrades">

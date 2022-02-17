@@ -33,7 +33,10 @@ export class Abilities extends React.Component<AbilitiesProps> {
               .map((upgradeId) => ability.upgrades[upgradeId])
               .reduce((sum, current) => sum + current.modifier, 0);
             return (
-              <div className="abilities-row" key={ability.abilityType}>
+              <div
+                className={`abilities-row abilities-row-${ability.abilityType}`}
+                key={ability.abilityType}
+              >
                 <div className="abilities-list">
                   <div className="ability-primary-row">
                     <div className="ability-primary-title">
