@@ -81,8 +81,8 @@ const Warden: Role = {
     },
     "role-power-3": {
       description: `{unlock}Gain the skill Divine: Wisdom +2 and you are proficient with Divine."`,
-      upgrades: ["unlock"]
-    }
+      upgrades: ["unlock"],
+    },
   },
 };
 
@@ -164,11 +164,11 @@ export const Harsk: Character = {
       count: 4,
       upgrades: {
         "blessing-1": {
-          modifier: 1
+          modifier: 1,
         },
         "blessing-2": {
           modifier: 1,
-        }
+        },
       },
     },
   },
@@ -218,7 +218,7 @@ export const Harsk: Character = {
       abilityType: AbilityType.Constitution,
       die: Die.D10,
       proficiencies: {
-        [SkillType.Fortitude]: 1
+        [SkillType.Fortitude]: 1,
       },
       upgrades: {
         "con-1": {
@@ -244,7 +244,7 @@ export const Harsk: Character = {
       die: Die.D6,
       proficiencies: {
         [SkillType.Perception]: 2,
-        [SkillType.Survival]: 3
+        [SkillType.Survival]: 3,
       },
       upgrades: {
         "wis-1": {
@@ -285,7 +285,7 @@ export const Harsk: Character = {
       description: `On your check that invokes the Axe or Bow 
       trait, add 1d6 ({1d8}1d8); 
       against a Giant monster, add another 1d4.`,
-      upgrades: ["1d8"]
+      upgrades: ["1d8"],
     },
     "power-3": {
       description: `At the end of your turn, you may examine the 

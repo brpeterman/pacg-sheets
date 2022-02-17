@@ -7,6 +7,7 @@ import { Amiri } from "./amiri";
 import { Ezren } from "./ezren";
 import { Fumbus } from "./fumbus";
 import { Harsk } from "./harsk";
+import { Lem } from "./lem";
 
 export * from "./character";
 
@@ -19,4 +20,5 @@ export const Characters: { [key: string]: Character } = {
   [Ezren.name]: Ezren,
   [Fumbus.name]: Fumbus,
   [Harsk.name]: Harsk,
+  [Lem.name]: Lem,
 };

@@ -19,9 +19,9 @@ const Boomshaker: Role = {
   },
 
   proficiencyUpgrades: {
-    "arcane": {
+    arcane: {
       proficiencyType: ProficiencyType.Arcane,
-    }
+    },
   },
 
   classPowerOverrides: {
@@ -103,8 +103,8 @@ const Fumbler: Role = {
     "role-power-3": {
       description: `{unlock}Treat your powers as if the words "Acid, Fire, or Poison" were "Acid, Cold, 
       Electricity, Fire, or Poison."`,
-      upgrades: ["unlock"]
-    }
+      upgrades: ["unlock"],
+    },
   },
 };
 
@@ -185,11 +185,11 @@ export const Fumbus: Character = {
       count: 3,
       upgrades: {
         "blessing-1": {
-          modifier: 1
+          modifier: 1,
         },
         "blessing-2": {
           modifier: 1,
-        }
+        },
       },
     },
   },
