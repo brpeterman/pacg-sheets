@@ -60,7 +60,7 @@ export class AppStack extends Stack {
       retainOnDelete: false,
       cacheControl: [
         CacheControl.setPublic(),
-        CacheControl.maxAge(Duration.hours(1)),
+        CacheControl.maxAge(Duration.hours(24)),
       ],
       distribution: cloudfront,
       distributionPaths: ["/*"],
